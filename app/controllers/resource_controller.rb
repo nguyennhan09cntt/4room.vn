@@ -19,7 +19,7 @@ class ResourceController < ApplicationController
   end
 
   def show
-
+     redirect_to :action => 'index'
   end
 
   def new
@@ -38,8 +38,8 @@ class ResourceController < ApplicationController
 
   def create
     @module = UserModule.find(params[:resource][:fk_user_module])
-    params_created = params.require(:resource).permit(:name, :controller, :active, :display)    
-    @resource = UserResource.new(params_created)    
+    params_created = params.require(:resource).permit(:name, :controller, :active, :display)
+    @resource = UserResource.new(params_created)
     @resource.user_module = @module
     if @resource.save
       redirect_to :action => 'index'

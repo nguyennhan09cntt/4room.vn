@@ -4,16 +4,16 @@
             <a href="/">Home</a>
             <i class="fa fa-circle"></i>
         </li>
-        
+
         <li>
             <span>User listing</span>
         </li>
     </ul>
-    
+
 </div>
 <!-- END PAGE BAR -->
 <!-- BEGIN PAGE TITLE-->
-<h1 class="page-title"> Danh sach 
+<h1 class="page-title"> Danh sach
     <small>thong tin thành viên</small>
 </h1>
 <!-- END PAGE TITLE-->
@@ -37,19 +37,19 @@
         <div class="table-scrollable">
             <table class="table table-bordered table-hover">
                 <thead>
-                    <tr>                        
+                    <tr>
                         <th> # </th>
                         <th> Username </th>
-                        <th> Full name </th>                        
+                        <th> Full name </th>
                       <!--   <th> Status </th> -->
                         <th> Birthday</th>
-                        <th> Last login </th>       
-                        <th> Action </th>             
+                        <th> Last login </th>
+                        <th> Action </th>
                     </tr>
                 </thead>
                 <tbody>
                     <% if !@users.blank? %>
-    	                <% @users.each_with_index do |c, index| %>				   	
+    	                <% @users.each_with_index do |c, index| %>
     				   	<tr>
                             <td> <%= index+1 %> </td>
                             <td> <%= link_to c.user_name, {:action => 'show', :id => c.id} -%> </td>
@@ -59,10 +59,11 @@
                             </td> -->
                             <td> <%= c.birthday %>  </td>
                             <td>
-                            <%= c.last_login -%> 
+                            <%= c.last_login -%>
                             </td>
                             <td class="util-btn-margin-bottom-5">
-                               <%= link_to "Edit", {:action => 'edit', :id => c.id}, :class => 'btn btn-sm yellow btn-outline edit'%>     
+                               <%= link_to "Edit", {:action => 'edit', :id => c.id}, :class => 'btn btn-sm yellow btn-outline edit'%>
+                               <%= link_to "Phan quyen", {:action => 'edit', :id => c.id}, :class => 'btn btn-sm yellow btn-outline edit'%>
                                <%= button_to "Delete", {:action => 'destroy', :id => c.id} , {:class => 'btn btn-sm red btn-outline deleted', :method => :delete,:confirm => 'Are you sure?', :disable_with => 'loading...'}%>
 
                             </td>
@@ -74,14 +75,14 @@
                         <td>
                         </tr>
                     <% else %>
-                        <tr> 
+                        <tr>
                             <td colspan="99">
                                 Khong co du lieu
                             </td>
                         </tr>
                     <% end %>
-	                    
-                    
+
+
                 </tbody>
             </table>
         </div>

@@ -1,7 +1,10 @@
 module ApplicationHelper
   def menu
-    permissionData = UserPermission.where('fk_user= :fk_user', {:fk_user => @current_user.id}, :joins => [:user_privilege, :user_resource, :user_module])
-   
+    permissionData = UserPermission.where(
+      'fk_user= :fk_user',
+      {:fk_user => @current_user.id},
+      :joins => [:user_privilege, :user_resource, :user_module]
+      )
     @menuData = Hash.new
     unless  permissionData.nil?
       permissionData.each do |data|
