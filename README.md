@@ -22,4 +22,4 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
-# rails-demo
+# 4rum.vn la phan mem quan ly xay dung cong dong dua tren group of facebook
