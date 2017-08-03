@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170522070129) do
+ActiveRecord::Schema.define(version: 20170722082912) do
 
   create_table "user", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", comment: "Table account" do |t|
     t.string   "user_name",  limit: 24,              null: false
@@ -28,6 +28,12 @@ ActiveRecord::Schema.define(version: 20170522070129) do
     t.string   "job",        limit: 256
     t.string   "phone",      limit: 45
     t.index ["user_name"], name: "user_name_UNIQUE", unique: true, using: :btree
+  end
+
+  create_table "user_acl", unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "fk_user_role",      null: false, unsigned: true
+    t.integer  "fk_user_privilege", null: false, unsigned: true
+    t.datetime "created_at"
   end
 
   create_table "user_component", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci" do |t|
@@ -64,7 +70,14 @@ ActiveRecord::Schema.define(version: 20170522070129) do
     t.string   "controller",                             collation: "utf8_general_ci"
     t.integer  "active",         limit: 1
     t.integer  "display",        limit: 1
+    t.integer  "priority",       limit: 1
     t.integer  "fk_user_module",            null: false,                               comment: "Resource"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "user_role", unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "name",       limit: 256, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
