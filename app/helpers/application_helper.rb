@@ -21,7 +21,7 @@ module ApplicationHelper
             end
             controller = data.user_privilege.user_resource.controller
             action = data.user_privilege.action
-            link = '%s/%s' % [controller, action]
+            link = '/%s/%s' % [controller, action]
             @menuData[moduleName][resourceName][link] = Hash[
               CMSConstant::PREFIX_MENU_NAME => data.user_privilege.name,
               CMSConstant::PREFIX_MENU_URL => link
