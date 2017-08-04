@@ -1,0 +1,117 @@
+<div class="portlet box blue">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i> Thong tin thanh vien </div>
+        <div class="tools">
+
+        </div>
+    </div>
+    <div class="portlet-body form">
+
+        <%= form_for @user, :url =>{:action => "update", :id =>@user}, :html => {:class => 'form-horizontal'} do |f| %>
+            <div class="form-body">
+                <div class="form-group">
+                    <%= label_tag(:user_user_name, "User Name", class: "col-md-4 control-label") %>
+                    <div class="col-md-8">
+                      <div class="input-icon right">
+                        <i class="fa fa-info-circle tooltips" data-original-title="User name" data-container="body"></i>
+                        <%= f.text_field :user_name, placeholder: 'Username', class: "form-control form-control-solid placeholder-no-fix", autocomplete:"off", disabled:true %>
+                       </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <%= label_tag(:user_fullname, "Full Name", class: "col-md-4 control-label") %>
+                    <div class="col-md-8">
+                      <div class="input-icon right">
+                        <i class="fa fa-info-circle tooltips" data-original-title="Full name" data-container="body"></i>
+                        <%= text_field :user, :name, placeholder: 'Fullname', class: "form-control form-control-solid placeholder-no-fix", autocomplete:"off", disabled:true %>
+                       </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <%= label_tag(:user_job, "Job title", class: "col-md-4 control-label") %>
+                    <div class="col-md-8">
+                      <div class="input-icon right">
+                        <i class="fa fa-info-circle tooltips" data-original-title="Job title" data-container="body"></i>
+                        <%= text_field :user, :job, placeholder: 'Job title', class: "form-control form-control-solid placeholder-no-fix", autocomplete:"off", disabled:true  %>
+                       </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <%= label_tag(:user_phone, "Mobile Number", class: "col-md-4 control-label") %>
+                    <div class="col-md-8">
+                      <div class="input-icon right">
+                        <i class="fa fa-info-circle tooltips" data-original-title="Mobile Number" data-container="body"></i>
+                        <%= text_field :user, :phone, placeholder: 'Mobile Number', class: "form-control form-control-solid placeholder-no-fix", autocomplete:"off", disabled:true  %>
+                       </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Nhóm quản trị:<span class="required" aria-required="true"> * </span>:</label>
+                    <div class="col-md-6">
+                        <?php echo $this->formSelect(
+                            'fkRole',
+                            $this->dataInfo ? $this->dataInfo->{DbTable_Admin::COL_FK_ADMIN_ROLE} : null,
+                            array('class' => 'form-control validate[required]'),
+                            array('' => '++') + $this->roleData
+                        ); ?>
+                    </div>
+                </div>
+
+
+                <% unless permission_data.nil? %>
+                    <?php foreach ($this->privilegeData as $module => $resourceData) { ?>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label"><?php echo $module; ?>:</label>
+
+                            <div class="col-md-9">
+                                <div class="row">
+                                    <?php foreach ($resourceData as $resource => $privilegeData) { ?>
+                                        <div class="col-md-4">
+                                            <p><strong><?php echo $resource; ?></strong></p>
+
+                                            <div class="checkbox-list">
+                                                <?php foreach ($privilegeData as $privilege) { ?>
+
+                                                    <label>
+                                                        <?php echo $this->formCheckbox(
+                                                            'privilegeArrId[]',
+                                                            $privilege[DbTable_Admin_Privilege::COL_ADMIN_PRIVILEGE_ID],
+                                                            array(
+                                                                'id' => 'checked' . $privilege[DbTable_Admin_Privilege::COL_ADMIN_PRIVILEGE_ID],
+                                                                'checked' => in_array($privilege[DbTable_Admin_Privilege::COL_ADMIN_PRIVILEGE_ID], $this->permissionArr) ? 1 : 0
+                                                            )
+                                                        ); ?>
+
+                                                        <?php echo $privilege[DbTable_Admin_Privilege::COL_ADMIN_PRIVILEGE_NAME]; ?>
+                                                    </label>
+
+
+                                                <?php } ?>
+                                            </div>
+                                        </div>
+                                    <?php } ?>
+                                </div>
+                            </div>
+                        </div>
+                    <? }
+                <% end %>
+
+                <div class="form-group">
+                    <%= label_tag(:user_birthday, "Birthday", class: "col-md-4 control-label") %>
+                    <div class="col-md-8">
+                      <div class="input-icon right">
+                        <i class="fa fa-info-circle tooltips" data-original-title="Birthday" data-container="body"></i>
+                         <%= f.text_field :birthday, class: "form-control form-control-solid placeholder-no-fix date-picker", autocomplete:"off", size: 6, 'data-date-format': 'yyyy-mm-dd', disabled:true %>
+                       </div>
+                    </div>
+                </div>
+
+            </div>
+        <% end %>
+    </div>
+</div>
+

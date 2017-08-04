@@ -63,7 +63,7 @@
                             </td>
                             <td class="util-btn-margin-bottom-5">
                                <%= link_to "Edit", {:action => 'edit', :id => c.id}, :class => 'btn btn-sm yellow btn-outline edit'%>
-                               <%= link_to "Phan quyen", {:action => 'edit', :id => c.id}, :class => 'btn btn-sm yellow btn-outline edit'%>
+                                <a href="/permission/<%= c.id %>" class="btn btn-sm yellow btn-outline edit">Phan quyen</a>
                                <%= button_to "Delete", {:action => 'destroy', :id => c.id} , {:class => 'btn btn-sm red btn-outline deleted', :method => :delete,:confirm => 'Are you sure?', :disable_with => 'loading...'}%>
 
                             </td>
