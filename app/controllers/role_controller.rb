@@ -1,4 +1,5 @@
 class RoleController < ApplicationController
+	include ModuleHelper
 	def index
 		@role = UserRole.paginate(:page => params[:page], :per_page => 10)
 	end
@@ -8,7 +9,7 @@ class RoleController < ApplicationController
 	 end
 
 	def new
-
+		@privilege_data = self.build_all_privilige			
 	end
 
 	def create

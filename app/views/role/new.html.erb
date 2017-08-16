@@ -1,0 +1,56 @@
+<div class="portlet box blue">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i> Manager Role </div>
+        <div class="tools">
+          
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <%= form_tag("/role", method: "post", class:"form-horizontal", id: "form_role_add") do %>
+            <%= @privilege_data %>
+            <% unless @role.nil? %>
+            <div class="alert alert-danger display-hide" style="display: block;">
+                <button class="close" data-close="alert"></button>                 
+                <ul>  
+                   <% @role.errors.full_messages.each do |message| %>
+                   <li><%= message %></li>
+                   <% end %>
+                </ul>
+            </div>
+            <% end %>
+            <div class="form-body">
+                <div class="form-group">
+                    <%= label_tag(:role_name, "Role Name", class: "col-md-4 control-label") %>
+                    <div class="col-md-8">
+                      <div class="input-icon right">
+                        <i class="fa fa-info-circle tooltips" data-original-title="Role name" data-container="body"></i>
+                        <%= text_field :role, :name, placeholder: 'Role Name', class: "form-control form-control-solid placeholder-no-fix", autocomplete:"off" %>
+                       </div>
+                    </div>
+                </div>  
+
+                <div class="form-group">
+                    <%= label_tag(:role_priority, "Priority", class: "col-md-4 control-label") %>
+                    <div class="col-md-8">
+                      <div class="input-icon right">
+                        <i class="fa fa-info-circle tooltips" data-original-title="Full name" data-container="body"></i>
+                        <%= text_field :role, :priority, placeholder: 'Priority', class: "form-control form-control-solid placeholder-no-fix", autocomplete:"off" %>
+                       </div>
+                    </div> 
+                </div>                
+                  
+             
+                <div class="form-actions">
+                 <div class="row">
+                    <div class="col-md-offset-4 col-md-8">
+                       <!--  <button type="button" class="btn default">Cancel</button> -->
+                        <%= submit_tag("Submit", class: "btn green uppercase") %>
+                    </div>
+                  </div>
+                </div>
+            </div>  
+        <% end %>
+    </div>
+</div>
+
