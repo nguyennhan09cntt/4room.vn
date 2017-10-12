@@ -31,4 +31,10 @@ class User < ApplicationRecord
 	def match_password(login_password="")
 		return password == Digest::SHA1.hexdigest("#{salt}#{login_password}")
 	end
+
+	def self.koala(auth)
+    access_token = auth['token']
+    facebook = Koala::Facebook::API.new(access_token)
+    facebook.get_object("me?fields=name,picture,birthday,email")
+  end
 end

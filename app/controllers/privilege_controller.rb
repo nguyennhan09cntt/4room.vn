@@ -1,6 +1,6 @@
 class PrivilegeController < ApplicationController
   def index
-      unless params[:r].nil? or params[:r] == 0  or params[:r] == ''
+    unless params[:r].blank?
       @privilege = UserPrivilege.where('fk_user_resource = :user_resource', {:user_resource => params[:r]}).paginate(:page => params[:page], :per_page => 10)
       @resource = UserResource.find(params[:r])
       unless  @resource.nil?
@@ -9,16 +9,16 @@ class PrivilegeController < ApplicationController
         @resourceId = 0
       end
     else
-      @privilege = UserPrivilege.order(:id)
+      @privilege = UserPrivilege.all.order(:id).paginate(:page => 1, :per_page => 10)
     end
     @resourceData = UserResource.order(:name)
   end
 
   def new
-    unless params[:m]
+    unless params[:m].blank?
       @resourceData = UserResource.where('fk_user_module = :fk_user_module', {:fk_user_module => params[:m]})
     else
-    	@resourceData = UserResource.all
+      @resourceData = UserResource.all
     end
 
     @resourceId = params[:r]

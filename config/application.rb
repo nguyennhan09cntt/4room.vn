@@ -12,16 +12,16 @@ module AppMysql
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
     config.assets.paths << "#{Rails.root}/lib/assets"
+    
+    Koala.config.api_version = 'v2.0'
   end
 end
 
 module ApplicationConstant
-
   # Database user_component_cms
-  COMPONENT_CMS = 1
-  
-  DISPLAY = 1
+  COMPONENT_CMS = 1  
 
+  DISPLAY = 1
 end
 
 module CMSConstant

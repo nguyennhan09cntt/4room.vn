@@ -1,7 +1,7 @@
 class UserAcl < ApplicationRecord
   self.table_name = "user_acl"
 
-  def getAll(role_id)
+  def self.get_all(role_id)
     query ="
     SELECT
         user_acl.*,
@@ -16,7 +16,8 @@ class UserAcl < ApplicationRecord
         user_resource.display as resource_display,
         user_resource.controller as resource_controller,
         user_module.id as module_id,
-        user_module.name as module_name
+        user_module.name as module_name,
+        user_module.fk_user_component
     FROM
         user_acl
     LEFT JOIN
@@ -26,8 +27,8 @@ class UserAcl < ApplicationRecord
     LEFT JOIN
         user_module ON user_module.id = user_resource.fk_user_module
     WHERE
-         user_permission.fk_user = #{role_id}
+         user_acl.fk_user_role = #{role_id}
     "
-    return self.find_by_sql(query)
+    return self.connection.exec_query(query).to_hash
   end
 end

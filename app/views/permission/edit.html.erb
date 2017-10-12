@@ -1,0 +1,101 @@
+<div class="portlet box blue">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i> Thong tin thanh vien </div>
+        <div class="tools">
+
+        </div>
+    </div>
+    <div class="portlet-body form">
+
+        <%= form_for @user, :url =>{:action => "update", :user_id =>@user}, :html => {:class => 'form-horizontal'} do |f| %>
+            <div class="form-body">
+                <div class="form-group">
+                    <%= label_tag(:user_user_name, "User Name", class: "col-md-4 control-label") %>
+                    <div class="col-md-8">
+                      <div class="input-icon right">
+                        <i class="fa fa-info-circle tooltips" data-original-title="User name" data-container="body"></i>
+                        <%= f.text_field :user_name, placeholder: 'Username', class: "form-control form-control-solid placeholder-no-fix", autocomplete:"off", disabled:true %>
+                       </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <%= label_tag(:user_fullname, "Full Name", class: "col-md-4 control-label") %>
+                    <div class="col-md-8">
+                      <div class="input-icon right">
+                        <i class="fa fa-info-circle tooltips" data-original-title="Full name" data-container="body"></i>
+                        <%= text_field :user, :name, placeholder: 'Fullname', class: "form-control form-control-solid placeholder-no-fix", autocomplete:"off", disabled:true %>
+                       </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <%= label_tag(:user_job, "Job title", class: "col-md-4 control-label") %>
+                    <div class="col-md-8">
+                      <div class="input-icon right">
+                        <i class="fa fa-info-circle tooltips" data-original-title="Job title" data-container="body"></i>
+                        <%= text_field :user, :job, placeholder: 'Job title', class: "form-control form-control-solid placeholder-no-fix", autocomplete:"off", disabled:true  %>
+                       </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <%= label_tag(:user_phone, "Mobile Number", class: "col-md-4 control-label") %>
+                    <div class="col-md-8">
+                      <div class="input-icon right">
+                        <i class="fa fa-info-circle tooltips" data-original-title="Mobile Number" data-container="body"></i>
+                        <%= text_field :user, :phone, placeholder: 'Mobile Number', class: "form-control form-control-solid placeholder-no-fix", autocomplete:"off", disabled:true  %>
+                       </div>
+                    </div>
+                </div>
+
+                 <div class="form-group">
+                    <%= label_tag(:resource_fk_user_module, "Nhóm quản trị:", class: "col-md-4 control-label") %>
+                    <div class="col-md-4">
+                      <div class="input-icon right">
+                        <i class="fa fa-info-circle tooltips" data-original-title="Module" data-container="body"></i>
+                        <%= collection_select(:user, :fk_user_role, @role_data, :id, :name, {prompt: true, :selected => @moduleId}, {:class=> "form-control form-control-solid"}) %>
+                       </div>
+                    </div>
+                </div>
+
+                <% unless  @privilige_data.nil? %>
+                    <% @privilige_data.each do |module_name, resource_data| %>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label"><%= module_name %>:</label>
+
+                            <div class="col-md-9">
+                                <div class="row">
+                                <% unless resource_data.nil? %>
+                                    <% resource_data.each do |resource_name, privilege_data| %>
+                                        <div class="col-md-4">
+                                            <p><strong><%= resource_name %></strong></p>
+
+                                            <div class="checkbox-list">
+                                               <% privilege_data.each do |_, privilege| %>
+                                                    <label>
+                                                        <%= check_box_tag 'privilege[]', privilege['id'], @permission_data.has_key?(privilege['id']), class: 'checkboxes' %>
+
+                                                        <%= privilege['name'] %>
+                                                    </label>
+                                                <% end %>
+                                            </div>
+                                        </div>
+                                    <% end %>
+                                <% end %>
+                                </div>
+                            </div>
+                        </div>
+                    <% end %>
+                <% end %>
+                <div class="form-actions">
+                 <div class="row">
+                    <div class="col-md-offset-4 col-md-8">
+                        <%= submit_tag("Submit", class: "btn green uppercase") %>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        <% end %>
+    </div>
+</div>

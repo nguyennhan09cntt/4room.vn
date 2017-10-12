@@ -1,8 +1,9 @@
 class UserPermission < ApplicationRecord
   self.table_name = "user_permission"
   belongs_to :user_privilege, foreign_key: 'fk_user_privilege'
-  def searchByAdminId(userId)
-    query = 'SELECT
+
+  def self.search_by(user_id)
+    query = "SELECT
 			    user_permission.*,
 			    user_privilege.id AS privilege_id,
 			    user_privilege.name AS privilege_name,
@@ -16,7 +17,6 @@ class UserPermission < ApplicationRecord
 			    user_resource.controller as resource_controller,
 			    user_module.id as module_id,
 			    user_module.name as module_name
-			    
 			FROM
 			    user_permission
 			        JOIN
@@ -26,8 +26,8 @@ class UserPermission < ApplicationRecord
 			        JOIN
 			    user_module ON user_module.id = user_resource.fk_user_module
 
-			WHERE 
-			     user_permission.fk_user = #{userId}'
-    return self.find_by_sql(query)
+			WHERE
+			     user_permission.fk_user = #{user_id}"
+    return self.connection.exec_query(query).to_hash
   end
 end

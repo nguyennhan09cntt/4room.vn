@@ -10,8 +10,8 @@
   </ul>
 </div>
 <!-- BEGIN PAGE TITLE-->
-<h1 class="page-title"> 
-	Manage  
+<h1 class="page-title">
+	Manage
     <small>Resource</small>
 </h1>
 <!-- END PAGE TITLE-->
@@ -34,7 +34,7 @@
           <fieldset class="filter">
             <label>Module</label>
             <%= select_tag "m", options_from_collection_for_select(@moduleData, "id", "name", :selected => @moduleId),
-            class: "input-inline form-control",  :prompt => 'Select' %>                          
+            class: "input-inline form-control",  :prompt => 'Select' %>
             <input value="Tìm kiếm" class="btn blue" type="submit">
           </fieldset>
         </form>
@@ -76,6 +76,8 @@
             <a href="/privilege/?r=<%= c.id %>&m=<%= c.fk_user_module%>">Manage Privilege</a>
             &nbsp;|&nbsp;
             <a href="/privilege/new/?r=<%= c.id %>&m=<%= c.fk_user_module%>">Add Privilege</a>
+             &nbsp;|&nbsp;
+             <a href="/resource/<%= c.id %>/edit">Edit Resource</a>
           </td>
         </tr>
         <% end %>

@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <!-- <Cell><Data ss:Type="String">ID</Data></Cell> -->
+        <Cell><Data ss:Type="String">Tieu de</Data></Cell>
+        <Cell><Data ss:Type="String">Price</Data></Cell>
+        <Cell><Data ss:Type="String">Dien tich</Data></Cell>
+        <Cell><Data ss:Type="String">Tên chủ nhà</Data></Cell>
+        <Cell><Data ss:Type="String">Số dt liên hệ</Data></Cell>
+        <Cell><Data ss:Type="String">Đia chỉ</Data></Cell>
+        <Cell><Data ss:Type="String">Quan/huyen</Data></Cell>
+        <Cell><Data ss:Type="String">Thanh pho</Data></Cell>
+        <Cell><Data ss:Type="String">Mo ta</Data></Cell>
+        <Cell><Data ss:Type="String">Noi dung</Data></Cell>
+        <Cell><Data ss:Type="String">Image 1</Data></Cell>
+        <Cell><Data ss:Type="String">Image 2</Data></Cell>
+        <Cell><Data ss:Type="String">Image 3</Data></Cell>
+        <Cell><Data ss:Type="String">Image 4</Data></Cell>
+        <Cell><Data ss:Type="String">Author</Data></Cell>
+        <Cell><Data ss:Type="String">Author_id</Data></Cell>
+        <Cell><Data ss:Type="String">Url</Data></Cell>
+        <Cell><Data ss:Type="String">Ngay tao</Data></Cell>
+      </Row>
+    <% @post_list.each do |post| %>
+      <Row>
+       <!--  <Cell><Data ss:Type="Number"><%= post.id %></Data></Cell> -->
+        <Cell><Data ss:Type="String"><%= post.name %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= post.price %></Data></Cell>
+        <Cell><Data ss:Type="Number"></Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="String">Hồ Chí Minh</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="String"><%= post.content %></Data></Cell>
+        <% for i in 0..3 %>        
+        <Cell><Data ss:Type="String"><%= post.post_image[i].present? ? post.post_image[i].url : '' %></Data></Cell>
+        <% end %>
+        <Cell><Data ss:Type="String"><%= post.member.name %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= post.member.facebook_id %></Data></Cell>
+        <Cell><Data ss:Type="String">http://www.facebook.com/<%= post.facebook_id %></Data></Cell>
+         <Cell><Data ss:Type="String"><%= post.created_at.in_time_zone("Hanoi") %></Data></Cell>
+      </Row>
+    <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>
+

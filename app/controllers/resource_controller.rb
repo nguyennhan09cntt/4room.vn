@@ -19,7 +19,7 @@ class ResourceController < ApplicationController
   end
 
   def show
-     redirect_to :action => 'index'
+    redirect_to :action => 'index'
   end
 
   def new
@@ -50,13 +50,21 @@ class ResourceController < ApplicationController
   end
 
   def edit
-
+    @resource = UserResource.find(params[:id])
+    @moduleData = UserModule.order(:name)
   end
 
   def update
-
-
-
+    resource_attr = params.require(:resource).permit(:name, :controller, :active, :display)
+    @resource  = UserResource.find(params[:id])
+    @resource.update_attributes(resource_attr)
+    if @resource.save
+      #Rails.logger.info(@user.errors.inspect)
+      redirect_to :action => 'index'
+    else
+      #Rails.logger.info(@user.errors.inspect)
+      redirect_to :action => 'edit'
+    end
   end
 
   def destroy

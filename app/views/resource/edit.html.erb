@@ -1,0 +1,77 @@
+<div class="portlet box blue">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i> Manager resource </div>
+        <div class="tools">
+
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <%= form_for @resource, :url =>{:action => "update", :id =>@resource}, :html => {:class => 'form-horizontal'} do |f| %>
+            <% unless @resource.errors.any? %>
+            <div class="alert alert-danger display-hide" style="display: block;">
+                <button class="close" data-close="alert"></button>
+                <ul>
+                   <% @resource.errors.full_messages.each do |message| %>
+                   <li><%= message %></li>
+                   <% end %>
+                </ul>
+            </div>
+            <% end %>
+            <div class="form-body">
+
+            <div class="form-group">
+                    <%= label_tag(:resource_name, "Resource name", class: "col-md-4 control-label") %>
+                    <div class="col-md-8">
+                      <div class="input-icon right">
+                        <i class="fa fa-info-circle tooltips" data-original-title="Controller" data-container="body"></i>
+                        <%= text_field :resource, :name, placeholder: 'Resource name', class: "form-control form-control-solid placeholder-no-fix", autocomplete:"off" %>
+                       </div>
+                    </div>
+                </div>
+
+
+
+                <div class="form-group">
+                    <%= label_tag(:resource_priority, "Active", class: "col-md-4 control-label") %>
+                    <div class="col-md-8">
+                      <div class="input-icon right">
+                        <i class="fa fa-info-circle tooltips" data-original-title="Active" data-container="body"></i>
+                        <%= text_field :resource, :active, placeholder: '1', class: "form-control form-control-solid placeholder-no-fix", autocomplete:"off" %>
+                       </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <%= label_tag(:resource_priority, "Display", class: "col-md-4 control-label") %>
+                    <div class="col-md-8">
+                      <div class="input-icon right">
+                        <i class="fa fa-info-circle tooltips" data-original-title="Display" data-container="body"></i>
+                        <%= text_field :resource, :display, placeholder: '1', class: "form-control form-control-solid placeholder-no-fix", autocomplete:"off" %>
+                       </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <%= label_tag(:resource_fk_user_module, "Module", class: "col-md-4 control-label") %>
+                    <div class="col-md-4">
+                      <div class="input-icon right">
+                        <i class="fa fa-info-circle tooltips" data-original-title="Module" data-container="body"></i>
+                        <%= collection_select(:resource, :fk_user_module, @moduleData, :id, :name, {prompt: true, :selected => @resource.fk_user_module}, {:class=> "form-control form-control-solid"}) %>
+                       </div>
+                    </div>
+                </div>
+
+
+                <div class="form-actions">
+                 <div class="row">
+                    <div class="col-md-offset-4 col-md-8">
+                       <!--  <button type="button" class="btn default">Cancel</button> -->
+                        <%= submit_tag("Submit", class: "btn green uppercase") %>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        <% end %>
+    </div>
+</div>

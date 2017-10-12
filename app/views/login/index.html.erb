@@ -72,13 +72,21 @@ License: You must have a valid license purchased only from themeforest(the above
               <%= label_tag(:password, "Password", class: "control-label visible-ie8 visible-ie9") %>
               <%= password_field_tag(:password, nil, placeholder: 'Password', class: "form-control form-control-solid placeholder-no-fix", autocomplete:"off") %>
             </div>  
-             <div class="form-actions">
+            <div class="form-actions">
               <%= submit_tag("Login", class: "btn green uppercase") %>
              <!--  <label class="rememberme check mt-checkbox mt-checkbox-outline">
                     <input type="checkbox" name="remember" value="1" />Remember
                     <span></span>
                 </label> -->
-              </div>
+            </div>
+            <div class="login-options">
+                <h4>Or login with</h4>
+                <ul class="social-icons">
+                    <li>
+                        <a class="social-icon-color facebook" data-original-title="facebook" href="/auth/facebook"></a>
+                    </li>                    
+                </ul>
+            </div>
             <% end %>    
 
             <!-- END LOGIN FORM -->

@@ -8,7 +8,7 @@
     </div>
     <div class="portlet-body form">
 
-        <%= form_for @user, :url =>{:action => "update", :id =>@user}, :html => {:class => 'form-horizontal'} do |f| %>
+        <%= form_for @user, :url =>{:action => "update", :user_id =>@user}, :html => {:class => 'form-horizontal'} do |f| %>
             <div class="form-body">
                 <div class="form-group">
                     <%= label_tag(:user_user_name, "User Name", class: "col-md-4 control-label") %>
@@ -49,52 +49,52 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Nhóm quản trị:<span class="required" aria-required="true"> * </span>:</label>
-                    <div class="col-md-6">
-                        <?php echo $this->formSelect(
-                            'fkRole',
-                            $this->dataInfo ? $this->dataInfo->{DbTable_Admin::COL_FK_ADMIN_ROLE} : null,
-                            array('class' => 'form-control validate[required]'),
-                            array('' => '++') + $this->roleData
-                        ); ?>
+                 <div class="form-group">
+                    <%= label_tag(:resource_fk_user_module, "Nhóm quản trị:", class: "col-md-4 control-label") %>
+                    <div class="col-md-4">
+                      <div class="input-icon right">
+                        <%= collection_select(:user, :fk_user_role, @role_data, :id, :name, {prompt: true, :selected => @user.fk_user_role}, {:class=> "form-control form-control-solid"}) %>
+                       </div>
                     </div>
                 </div>
 
-
-                <% unless  @permission_data.nil? %>
-                    <% @permission_data.each do |key, item| %>
+                <% unless  @privilige_data.nil? %>
+                    <% @privilige_data.each do |module_name, resource_data| %>
                         <div class="form-group">
-                            <label class="col-md-3 control-label"><%= key %>:</label>
+                            <label class="col-md-3 control-label"><%= module_name %>:</label>
 
                             <div class="col-md-9">
                                 <div class="row">
-                                 <% unless item.nil? %>
-                                    <% item.each do |subKey, subItem| %>
+                                <% unless resource_data.nil? %>
+                                    <% resource_data.each do |resource_name, privilege_data| %>
                                         <div class="col-md-4">
-                                            <p><strong><%= subKey %></strong></p>
+                                            <p><strong><%= resource_name %></strong></p>
 
                                             <div class="checkbox-list">
-                                                <% subItem.each do |privilege, privilege_data| %>
-
+                                               <% privilege_data.each do |_, privilege| %>
                                                     <label>
-                                                        
+                                                        <%= check_box_tag 'privilege[]', privilege['id'], @permission_data.has_key?(privilege['id']), class: 'checkboxes' %>
 
-                                                       <%= privilege %>
+                                                        <%= privilege['name'] %>
                                                     </label>
-
-
                                                 <% end %>
                                             </div>
                                         </div>
                                     <% end %>
-                                    <% end %>
+                                <% end %>
                                 </div>
                             </div>
                         </div>
                     <% end %>
                 <% end %>
-
+                <div class="form-actions">
+                 <div class="row">
+                    <div class="col-md-offset-4 col-md-8">
+                       <!--  <button type="button" class="btn default">Cancel</button> -->
+                        <%= submit_tag("Submit", class: "btn green uppercase") %>
+                    </div>
+                  </div>
+                </div>
             </div>
         <% end %>
     </div>

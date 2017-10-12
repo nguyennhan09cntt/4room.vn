@@ -3,7 +3,7 @@
         <div class="caption">
             <i class="fa fa-gift"></i> Manager Role </div>
         <div class="tools">
-          
+
         </div>
     </div>
     <div class="portlet-body form">
@@ -11,8 +11,8 @@
             <%= @privilege_data %>
             <% unless @role.nil? %>
             <div class="alert alert-danger display-hide" style="display: block;">
-                <button class="close" data-close="alert"></button>                 
-                <ul>  
+                <button class="close" data-close="alert"></button>
+                <ul>
                    <% @role.errors.full_messages.each do |message| %>
                    <li><%= message %></li>
                    <% end %>
@@ -21,26 +21,56 @@
             <% end %>
             <div class="form-body">
                 <div class="form-group">
-                    <%= label_tag(:role_name, "Role Name", class: "col-md-4 control-label") %>
-                    <div class="col-md-8">
+                    <%= label_tag(:role_name, "Role Name", class: "col-md-3 control-label") %>
+                    <div class="col-md-9">
                       <div class="input-icon right">
                         <i class="fa fa-info-circle tooltips" data-original-title="Role name" data-container="body"></i>
                         <%= text_field :role, :name, placeholder: 'Role Name', class: "form-control form-control-solid placeholder-no-fix", autocomplete:"off" %>
                        </div>
                     </div>
-                </div>  
+                </div>
 
                 <div class="form-group">
-                    <%= label_tag(:role_priority, "Priority", class: "col-md-4 control-label") %>
-                    <div class="col-md-8">
+                    <%= label_tag(:role_priority, "Priority", class: "col-md-3 control-label") %>
+                    <div class="col-md-9">
                       <div class="input-icon right">
                         <i class="fa fa-info-circle tooltips" data-original-title="Full name" data-container="body"></i>
                         <%= text_field :role, :priority, placeholder: 'Priority', class: "form-control form-control-solid placeholder-no-fix", autocomplete:"off" %>
                        </div>
-                    </div> 
-                </div>                
-                  
-             
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Chọn tất cả:</label>
+                    <div class="col-md-6">
+                        <input type="checkbox" class="group-checkable" data-set="#validate .checkboxes"/>
+                    </div>
+
+                </div>
+
+               <% @module_data.each do |module_name, resource_data|%>
+                  <div class="form-group">
+                        <label class="col-md-3 control-label"><%= module_name %></label>
+                        <div class="col-md-9">
+                            <div class="row">
+                            <% resource_data.each do |resource_name, privilege_data| %>
+                              <div class="col-md-4">
+                                    <p><strong><%= resource_name %></strong></p>
+                                    <div class="checkbox-list">
+                                        <% privilege_data.each do |_, privilege| %>
+                                            <label>
+                                                <%= check_box_tag 'privilege[]', privilege['id'], false, class: 'checkboxes' %>
+
+                                                <%= privilege['name'] %>
+                                            </label>
+                                        <% end %>
+                                    </div>
+                                </div>
+                            <% end %>
+                            </div>
+                        </div>
+                    </div>
+                <% end %>
                 <div class="form-actions">
                  <div class="row">
                     <div class="col-md-offset-4 col-md-8">
@@ -49,7 +79,7 @@
                     </div>
                   </div>
                 </div>
-            </div>  
+            </div>
         <% end %>
     </div>
 </div>

@@ -36,6 +36,10 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 gem 'will_paginate', '>= 3.0'
+gem 'seed_dump'
+gem 'omniauth-facebook' # Facebook authentication
+gem "koala" # Facebook API
+gem 'axlsx', '~> 2.0', '>= 2.0.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

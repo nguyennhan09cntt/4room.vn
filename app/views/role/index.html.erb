@@ -10,8 +10,8 @@
   </ul>
 </div>
 <!-- BEGIN PAGE TITLE-->
-<h1 class="page-title"> 
-	Manage  
+<h1 class="page-title">
+	Manage
     <small>Module</small>
 </h1>
 <!-- END PAGE TITLE-->
@@ -37,7 +37,7 @@
               <option value="0">++</option>
               <option value="1">CMS</option>
               <option value="2">Operation</option>
-            </select>                                
+            </select>
             <input value="Tìm kiếm" class="btn blue" type="submit">
           </fieldset>
         </form>
@@ -50,7 +50,7 @@
             ID
           </th>
           <th>
-            Tên Module
+            Tên Role
           </th>
           <th>
             Thứ tự hiển thị
@@ -70,12 +70,10 @@
         <tr>
           <td><%= c.id %></td>
           <td><%= c.name %></td>
-          <td><%= c.priority %></td>          
+          <td></td>
           <td><%= c.created_at %></td>
           <td>
-            <a href="/role/=<%= c.id %>">Manage Role</a>
-            &nbsp;|&nbsp;
-            <a href="/role/new/">Add Role</a>
+            <a href="/role/<%= c.id %>/edit">Edit</a>
           </td>
         </tr>
         <% end %>
