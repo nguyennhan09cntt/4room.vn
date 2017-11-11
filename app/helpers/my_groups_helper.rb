@@ -1,0 +1,2 @@
+module MyGroupsHelper
+end

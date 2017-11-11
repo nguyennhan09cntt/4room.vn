@@ -1,0 +1,40 @@
+<div class="container">
+    
+    <h2 class="page-heading center mt-sm">
+            <span class="page-heading-title">NHOM NOI BAT</span>
+        </h2>
+    <div class="row product-list list mt-sm">
+        <% @groups.each do |site| %>
+            <div class="col-md-4 product-item ">
+                <span class="thumb-info thumb-info-preview thumb-info-preview-long">
+                                    <span class="thumb-info-wrapper">                                       
+                 <a href="<%= "/group/#{site[:facebook_id]}/post" %>">
+                                            <img class="img-responsive" src="<%= site[:cover] ? site[:cover] : '/assets/default/layout/img/no-image.jpg' %>" alt="<%= site[:name]%>" title="<%= site[:name]%>" style="height: 170px">
+                                        </a>
+                <div class="figType jumbotron-icon"><a href="<%= "/group/#{site[:facebook_id]}"%>"><i class="fa fa-search-plus fa-2" aria-hidden="true"></i></a>
+                </div>
+                <div class="figPrice jumbotron-icon">
+                    <a href="<%= site[:url]%>" target="_blank"><i class="fa fa-facebook-square fa-2" aria-hidden="true"></i>
+                 </div>
+                </span>
+                </span>
+                <div class="recent-posts pt-md mb-lg" style="border: 1px solid #DDD; border-top: none;">
+                    <article class="post mr-sm ml-sm">
+                        <h5 class="mb-xs course-title" style="min-height: 35px;">
+                                            <a class="" href="<%= "/group/#{site[:facebook_id]}/post"%>"><%= site[:name]%></a>
+                                        </h5>
+                    </article>
+                </div>
+            </div>
+            <% end %>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="pagination_container" style="text-align: center;">
+                <ul class="pagination f_right">
+                    <%= will_paginate @groups %>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

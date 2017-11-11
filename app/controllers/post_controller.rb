@@ -7,22 +7,41 @@ class PostController < ApplicationController
   include ActionView::Helpers::TextHelper
 
   def index
-    @posts = Post.paginate(:page => params[:page], :per_page => 25).reorder("created_at DESC, id DESC")
+  	group_id = '545206412228291'
+    if params[:group_id].present?
+    	group_id = params[:group_id]
+    end
+    @site = Site.where('facebook_id = :group_id', {group_id: group_id}).first
+    @posts = Post.where('site_id = :site_id', {site_id: @site[:id]}).paginate(:page => params[:page], :per_page => 25).reorder("created_at DESC, id DESC")
     #send_xls(@post_list)
-    date = DateTime.now
-    
+    #date = DateTime.now
+
     #@begin_day = Date.new(date.year, date.month, date.day).in_time_zone('Hanoi') #Time.zone.name  #time_zone.local(date.year, date.month, date.day)
   end
 
-  def export_data
+  def export_data    
+    date_from = params['date-from']
+    date_to = params['date-to']
     change_format
-    zone = ActiveSupport::TimeZone.new('UTC')
-    date = DateTime.now
-    time_zone = Time.zone # any time zone really
+    #zone = ActiveSupport::TimeZone.new('UTC')
+    date = DateTime.now.beginning_of_day
+    if date_from.present?
+      date = DateTime.strptime(date_from, '%d/%m/%Y').beginning_of_day
+    end
+    #time_zone = Time.zone # any time zone really
     #begin_day = time_zone.local(date.year, date.month, date.day)
-    begin_day = Date.new(date.year, date.month, date.day).in_time_zone('Hanoi')
+    begin_date = date#.in_time_zone('UTC')
+    date = DateTime.now.end_of_day
+    if date_to.present?
+      date = DateTime.strptime(date_to, '%d/%m/%Y').end_of_day
+    end
+    end_date = date#.in_time_zone('UTC')
+
     #begin_day = DateTime.now.beginning_of_day
-    @post_list = Post.where('created_at > :created_time', {created_time: begin_day}).reorder("created_at DESC")
+    @post_list = Post.where(
+      'created_at > :begin_date and created_at < :end_date',
+      {begin_date: begin_date, end_date: end_date}
+    ).reorder("created_at DESC")
     content = @post_list.to_xls(col_sep: "\t")
     #content  = content.scrub('')
     respond_to do |format|
@@ -36,6 +55,13 @@ class PostController < ApplicationController
     @user = current_user
     access_token = @user[:access_token]
     group_id = '545206412228291'
+    if params[:group_id].present?
+    	group_id = params[:group_id]
+    end
+    
+    site = Site.where('facebook_id = :group_id', {group_id: group_id}).first
+    return if site.blank?
+
     facebook = Koala::Facebook::API.new(access_token)
     #   posts = facebook.get_object("#{group_id}/feed?limit=100")
     posts = facebook.get_connections(
@@ -46,6 +72,11 @@ class PostController < ApplicationController
       }
     )
 
+    # if site[:id] !=1
+    # 	msg = { :status => "ok", :message => "Success!", :html =>posts }
+    # 	render :json => msg
+    # 	return
+    # end
 
     posts = posts.collect! do |fpost|
       post = {}
@@ -53,10 +84,18 @@ class PostController < ApplicationController
         messages = fpost['message'].split("\n\n")
         if messages.length == 1
           post[:content] = messages[0].scrub if messages[0].present?
-          #post[:content] = post[:content].gsub(/\n/, '<br/>').html_safe if post[:content].present?
+
+          part_one_array = messages[0].split("\n")
+          if part_one_array.length > 1 
+          	messages[0] = part_one_array[0]
+          end
+          
+          post[:name] = messages[0].split(' ').first(16).join(' ').each_char.select { |char| char.bytesize < 4 }.join if messages[0].present?
+          post[:name] = post[:name] + '...' if post[:name].present?
         else
           part_one_array = messages[0].split("\n")
-          post[:name] = part_one_array[0]
+          post[:name] = part_one_array[0].each_char.select { |char| char.bytesize < 4 }.join if part_one_array[0].present?
+
           if part_one_array[1]
             address_price = part_one_array[1].split(" - ")
             post[:price] = address_price[0].gsub!(/[^0-9]/, '')
@@ -70,8 +109,12 @@ class PostController < ApplicationController
       end
 
       post[:facebook_id] = fpost['id']
-      post[:site_id] = 1
-      post[:created_at] = fpost['created_time']
+      post[:site_id] = site[:id]
+      post[:status] = 2
+      post[:created_at] = DateTime.parse(fpost['created_time']) + 7.hours
+
+      post_record  = Post.where('facebook_id = :facebook_id', {facebook_id: post[:facebook_id]})
+      next if post_record.present?
 
       member = {}
       if fpost['from'].present?
@@ -90,37 +133,34 @@ class PostController < ApplicationController
       end
 
       if post.present? && post[:content].present?
-        post_record  = Post.where('facebook_id = :facebook_id', {facebook_id: post[:facebook_id]})
-        if post_record.blank?
-        	post = Post.new(post)
-        	post.save
-          if fpost['attachments'].present?
-            attachments = fpost['attachments']['data'][0]
+        post = Post.new(post)
+        post.save
+        if fpost['attachments'].present?
+          attachments = fpost['attachments']['data'][0]
 
-            if attachments.present?
-              if attachments['type'] == 'album'
-                attachments['subattachments']['data'].each do |image_attach|
-                  if image_attach['type'] == 'photo'
-                    image = {}
-                    image[:name] = post[:name]
-                    image[:post_id] = post[:id]
-                    image[:url] = image_attach['media']['image']['src']
-                    image_record = PostImage.new(image)
-                    image_record.save
-                    fpost[:image] = image
-                  end
+          if attachments.present?
+            if attachments['type'] == 'album'
+              attachments['subattachments']['data'].each do |image_attach|
+                if image_attach['type'] == 'photo'
+                  image = {}
+                  image[:name] = post[:name]
+                  image[:post_id] = post[:id]
+                  image[:url] = image_attach['media']['image']['src']
+                  image_record = PostImage.new(image)
+                  image_record.save
+                  fpost[:image] = image
                 end
               end
+            end
 
-              if attachments['type'] == 'photo'
-                image = {}
-                image[:name] = post[:name]
-                image[:post_id] = post[:id]
-                image[:url] = attachments['media']['image']['src']
-                image_record = PostImage.new(image)
-                image_record.save
-                fpost[:image] = image
-              end
+            if attachments['type'] == 'photo'
+              image = {}
+              image[:name] = post[:name]
+              image[:post_id] = post[:id]
+              image[:url] = attachments['media']['image']['src']
+              image_record = PostImage.new(image)
+              image_record.save
+              fpost[:image] = image
             end
           end
         end
@@ -131,6 +171,11 @@ class PostController < ApplicationController
     redirect_to :action => 'index'
   end
 
+  def update_status
+    status = params[:staus]
+    ids = params[:ids]
+    Post.where(:id => ids).update_all(:status => status)
+  end
 
   private
   def send_xls(post)

@@ -3,6 +3,9 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user
   config.time_zone = 'HaNoi'
 
+
+  Default = 'default'
+  
   include SessionHelper
 
   protected 

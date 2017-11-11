@@ -46,7 +46,7 @@
         <Cell><Data ss:Type="String"><%= post.member.name %></Data></Cell>
         <Cell><Data ss:Type="String"><%= post.member.facebook_id %></Data></Cell>
         <Cell><Data ss:Type="String">http://www.facebook.com/<%= post.facebook_id %></Data></Cell>
-         <Cell><Data ss:Type="String"><%= post.created_at.in_time_zone("Hanoi") %></Data></Cell>
+         <Cell><Data ss:Type="String"><%= post.created_at.strftime("%d/%m/%Y %H:%M:%S") %></Data></Cell>
       </Row>
     <% end %>
     </Table>

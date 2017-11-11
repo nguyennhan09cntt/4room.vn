@@ -34,7 +34,8 @@ class User < ApplicationRecord
 
 	def self.koala(auth)
     access_token = auth['token']
+    Koala.config.api_version = "v2.10"
     facebook = Koala::Facebook::API.new(access_token)
-    facebook.get_object("me?fields=name,picture,birthday,email")
+    facebook.get_object("me?fields=name,picture,birthday,email")   
   end
 end

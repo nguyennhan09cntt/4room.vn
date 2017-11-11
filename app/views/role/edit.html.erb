@@ -49,7 +49,7 @@
                                     <div class="checkbox-list">
                                         <% privilege_data.each do |_, privilege| %>
                                             <label>
-                                                <%= check_box_tag 'privilege[]', privilege['id'], false, class: 'checkboxes' %>
+                                                <%= check_box_tag 'privilege[]', privilege['id'], @privilege_data.has_key?(privilege['id']), class: 'checkboxes' %>
 
                                                 <%= privilege['name'] %>
                                             </label>

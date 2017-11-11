@@ -22,15 +22,14 @@ module ApplicationHelper
             controller = data.user_privilege.user_resource.controller
             action = data.user_privilege.action
             link = "/#{controller}"
-            @menuData[moduleName][resourceName][link] = Hash[
+            @menuData[moduleName][resourceName][controller] = Hash[
               CMSConstant::PREFIX_MENU_NAME => data.user_privilege.name,
               CMSConstant::PREFIX_MENU_URL => link
             ]
           end
         end
       end
-    end
-    puts @menuData
+    end    
     render :partial => 'layouts/menu'
   end
 end

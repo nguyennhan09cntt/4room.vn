@@ -1,5 +1,6 @@
 class RoleController < ApplicationController
   include ModuleHelper
+  include RoleHelper
 
   def index
     @role = UserRole.paginate(:page => params[:page], :per_page => 10)
@@ -30,6 +31,7 @@ class RoleController < ApplicationController
   def edit
     @role = UserRole.find(params[:id])
     @role_data = self.build_all_privilige
+    @privilege_data = self.build_privilege(params[:id])
   end
 
   def update
@@ -37,7 +39,7 @@ class RoleController < ApplicationController
     @role.update_attributes(params.require(:role).permit(:name))
     if @role.save
       UserAcl.delete_all(['fk_user_role = ?', @role.id])
-      privilege_data = params['privilege']     
+      privilege_data = params['privilege']
       privilege_data.each do |value|
         privilege = UserAcl.new(:fk_user_role => @role.id, :fk_user_privilege => value)
         privilege.save

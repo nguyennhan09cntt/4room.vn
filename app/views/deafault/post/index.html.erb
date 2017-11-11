@@ -1,0 +1,67 @@
+<div class="container blog-home margin-top-20">
+    <div class="col-md-12">
+        <div class="row ">
+            <div class="col-md-9">
+                <ul class="breadcrumb">
+                    <li><a href="/">Trang chủ</a></li>
+                    <li><a href="/pokemon">Danh sách pokemon</a></li>
+                    <li class="active"><?php echo $this->category[DbTable_Blog_Category::COL_BLOG_CATEGORY_NAME];?></li>
+                </ul>
+                <h1 class="">
+                    <?php echo $this->category[DbTable_Blog_Category::COL_BLOG_CATEGORY_NAME];?>
+                </h1>
+                <div class="gap gap-small"></div>
+                <div class="row row-wrap" id="blogItems">
+                    <?php foreach ($this->blogData as $blog) { ?>
+                        <div class="grid-sizer item col-md-4" >
+                            <div class="blog-thumb text-align-left">
+                                <header class="blog-header">
+                                    <?php if($this->formatTime() == $this->formatTime($blog[DbTable_Blog::COL_BLOG_CREATED_AT])){?>
+                                    <span class="product-label label label-success">New</span>
+                                    <?php }?>
+									<a href="/<?php echo $this->blogComponentIdentify($blog[DbTable_Blog::COL_FK_COMPONENT])?>/<?php echo $this->blogCategoryIdentify($blog[DbTable_Blog::COL_FK_BLOG_CATEGORY])?>/<?php echo ($blog[DbTable_Blog::COL_BLOG_IDENTIFY])?>">
+                                    <?php if($blog[DbTable_Blog::COL_BLOG_IMPORT_FLAG]) {?>
+                                        <img src="<?php echo $blog[DbTable_Blog::COL_BLOG_THUMB_IMAGE];?>"
+                                             alt="<?php echo $blog[DbTable_Blog::COL_BLOG_NAME];?>"
+                                             title="<?php echo $blog[DbTable_Blog::COL_BLOG_NAME];?>"/>
+                                    <?php }else{?>
+                                        <img src="/upload/<?php echo $blog[DbTable_Blog::COL_BLOG_THUMB_IMAGE];?>"
+                                             alt="<?php echo $blog[DbTable_Blog::COL_BLOG_NAME];?>"
+                                             title="<?php echo $blog[DbTable_Blog::COL_BLOG_NAME];?>"/>
+                                    <?php };?>
+									</a>
+                                </header>
+                                <div class="blog-inner" style="padding: 5px;">
+                                    <h5 class="blog-title">
+                                        <a href="/<?php echo $this->blogComponentIdentify($blog[DbTable_Blog::COL_FK_COMPONENT])?>/<?php echo $this->blogCategoryIdentify($blog[DbTable_Blog::COL_FK_BLOG_CATEGORY])?>/<?php echo ($blog[DbTable_Blog::COL_BLOG_IDENTIFY])?>">
+                                            <?php echo $blog[DbTable_Blog::COL_BLOG_NAME];?>
+                                        </a>
+                                    </h5>
+                                    <p class="blog-desciption"><?php echo $blog[DbTable_Blog::COL_BLOG_DESCRIPTION];?></p>
+                                    <div class="blog-meta">
+                                        <ul class="blog-actions-list">
+                                            <li class="blog-category margin-top-10"><a class="btn btn-sm "><?php echo $this->blogCategoryLabel($blog[DbTable_Blog::COL_FK_BLOG_CATEGORY])?></a></li>
+                                            <li class="pull-right margin-top-10"><a class="btn btn-sm btn-default"
+                                                                                    href="/<?php echo $this->blogComponentIdentify($blog[DbTable_Blog::COL_FK_COMPONENT])?>/<?php echo $this->blogCategoryIdentify($blog[DbTable_Blog::COL_FK_BLOG_CATEGORY])?>/<?php echo ($blog[DbTable_Blog::COL_BLOG_IDENTIFY])?>/"><i
+                                                        class="fa fa-link"></i></a></li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php };?>
+                </div>
+                <div class="row">
+
+                    <div id="pagination_container" style="text-align: center;">
+                        <?php echo $this->pagination; ?>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <?php echo $this->render('blog/widgets/sidebar-right.phtml'); ?>
+            </div>
+        </div>
+    </div>
+</div>

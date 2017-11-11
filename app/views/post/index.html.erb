@@ -10,8 +10,8 @@
   </ul>
 </div>
 <!-- BEGIN PAGE TITLE-->
-<h1 class="page-title"> 
-	Manage  
+<h1 class="page-title">
+	Manage
     <small>POST</small>
 </h1>
 <!-- END PAGE TITLE-->
@@ -19,7 +19,7 @@
 <div class="portlet box grey-cascade">
   <div class="portlet-title">
     <div class="caption">
-      <i class="fa fa-globe"></i><%= @posts.length %> dòng(s)
+      <i class="fa fa-globe"></i><%= @posts.total_entries %> dòng(s)
     </div>
   </div>
   <div class="portlet-body">
@@ -29,25 +29,34 @@
           Thêm mới <i class="fa fa-plus"></i>
         </button>
       </div> -->
-      <%= link_to "Upload data", post_update_data_path %>
+      <%= link_to "Update", { controller: "post", action: "update_data", group_id: @site[:facebook_id]}, { :class => 'btn green'} %>
+
       <div class="pull-right">
-        <%= link_to "Excel_By_Xml", export_data_path(format: "xls") %>
+         <%= form_tag("/export_data.xls", method: "get", class:"form-inline", id: "form_export_data", role: "form") do %>        <!-- <form class="form-inline" role="form"> -->
+
+              <div class="input-group input-large date-picker input-daterange" data-date="10/11/2012" data-date-format="dd/mm/yyyy">
+                  <input type="text" class="form-control" name="date-from">
+                  <span class="input-group-addon"> to </span>
+                  <input type="text" class="form-control" name="date-to"> </div>                         
+            <%= submit_tag("Export", class: "btn blue") %>          
+       <% end %>
         
+
       </div>
     </div>
     <table class="table table-striped table-bordered table-hover" id="table_module">
       <thead>
         <tr>
           <th>
-            ID
+            
           </th>
           <th width="350">
-            Tên 
+            Tên
           </th>
           <th>
             Gia
-          </th>   
-          <th>image</th>    
+          </th>
+          <th>image</th>
           <th>
             Ngày tạo
           </th>
@@ -61,12 +70,12 @@
           <td><%= post.id %></td>
           <td><%= post.name %></td>
           <td><%= post.price %></td>
-          <td>    
-           <img src="<%= post.post_image[0].present? ? post.post_image[0].url : '' %>" height=40>          
-          </td>
-          <td><%= post.created_at.in_time_zone("Hanoi").strftime("%d/%m/%Y %H:%M") %></td>
           <td>
-           
+           <img src="<%= post.post_image[0].present? ? post.post_image[0].url : '' %>" height=40>
+          </td>
+          <td><%= post.created_at.strftime("%d/%m/%Y %H:%M") %></td>
+          <td>
+             <a href="https://facebook.com/<%= post.facebook_id %>" class="btn btn-sm yellow btn-outline edit" target="_blank">Link</a>
           </td>
         </tr>
         <% end %>
