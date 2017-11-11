@@ -1,0 +1,9 @@
+.grid-sizer iframe {
+	max-width: 100%;
+	min-height: 150px;
+	display: block;
+}
+
+.grid-sizer{
+	margin-bottom: 15px;
+}

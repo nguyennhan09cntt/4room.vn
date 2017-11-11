@@ -20,8 +20,8 @@ var Component = function() {
     }
 
     var handleShowMenu = function() {
-        $('li.module').removeClass('active');
-        var current = $('ul#menu').find('a.current');
+        $('li.module').removeClass('active');        
+        var current = $('ul#menu').find('a.current');        
         if (current) {
             var module = current.closest('li.module');
             if (module) {
