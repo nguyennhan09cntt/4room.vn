@@ -13,7 +13,11 @@ module AppMysql
     # -- all .rb files in that directory are automatically loaded.
     config.assets.paths << "#{Rails.root}/lib/assets"
     
-    Koala.config.api_version = 'v2.0'
+    Koala.config.api_version = 'v2.10'
+
+    config.generators do |g|
+      g.assets false
+    end
   end
 end
 
