@@ -19,7 +19,7 @@
 <div class="portlet box grey-cascade">
   <div class="portlet-title">
     <div class="caption">
-      <i class="fa fa-globe"></i><%= @site.total_entries %> dòng(s)
+      <i class="fa fa-globe"></i><%= @sites.total_entries %> dòng(s)
     </div>
   </div>
   <div class="portlet-body">
@@ -63,7 +63,7 @@
         </tr>
       </thead>
       <tbody>
-      	<%  @site.each do |c| %>
+      	<%  @sites.each do |c| %>
         <tr>
           <td><%= c.id %></td>
           <td><%= c.name %></td>
@@ -78,7 +78,7 @@
       <tfoot>
         <tr>
           <td colspan="99">
-            <%= will_paginate @site %>
+            <%= will_paginate @sites %>
           </td>
         </tr>
       </tfoot>

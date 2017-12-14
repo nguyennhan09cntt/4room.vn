@@ -23,24 +23,18 @@
     </div>
   </div>
   <div class="portlet-body">
-    <div class="table-toolbar">
-      <!-- <div class="btn-group">
-        <button id="btn_add_new" class="btn green">
-          Thêm mới <i class="fa fa-plus"></i>
-        </button>
-      </div> -->
+    <div class="table-toolbar">      
       <%= link_to "Update", { controller: "post", action: "update_data", group_id: @site[:facebook_id]}, { :class => 'btn green'} %>
-
       <div class="pull-right">
-         <%= form_tag("/export_data.xls", method: "get", class:"form-inline", id: "form_export_data", role: "form") do %>        <!-- <form class="form-inline" role="form"> -->
+         <%= form_tag("/export_data.xls", method: "get", class: "form-inline", id: "form_export_data", role: "form") do %>        <!-- <form class="form-inline" role="form"> -->
 
               <div class="input-group input-large date-picker input-daterange" data-date="10/11/2012" data-date-format="dd/mm/yyyy">
                   <input type="text" class="form-control" name="date-from">
                   <span class="input-group-addon"> to </span>
-                  <input type="text" class="form-control" name="date-to"> </div>                         
+                  <input type="text" class="form-control" name="date-to"> </div>
+            <%= hidden_field_tag :group_id, @site[:facebook_id] %>                        
             <%= submit_tag("Export", class: "btn blue") %>          
-       <% end %>
-        
+       <% end %>       
 
       </div>
     </div>
@@ -65,9 +59,9 @@
         </tr>
       </thead>
       <tbody>
-      	<%  @posts.each do |post| %>
+      	<%  @posts.each_with_index do |post, index| %>
         <tr>
-          <td><%= post.id %></td>
+          <td><%= index+1 %></td>
           <td><%= post.name %></td>
           <td><%= post.price %></td>
           <td>

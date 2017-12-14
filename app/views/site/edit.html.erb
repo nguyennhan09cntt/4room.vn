@@ -1,0 +1,75 @@
+<div class="portlet box blue">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i> Thong tin nhom </div>
+        <div class="tools">
+
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <%= form_for @site, :url =>{:action => "update", :id =>@site}, :html => {:class => 'form-horizontal'} do |f| %>
+            <div class="form-body">
+              <% if @site.errors.any? %>
+              <div class="alert alert-danger display-hide" style="display: block;">
+                  <button class="close" data-close="alert"></button>
+                  <ul>
+                   <% @site.errors.full_messages.each do |message| %>
+                   <li><%= message %></li>
+                  </ul>
+                  <% end %>
+              </div>
+              <% end %>
+
+                <div class="form-group">
+                    <%= label_tag(:site_name, "Name", class: "col-md-4 control-label") %>
+                    <div class="col-md-8">
+                      <div class="input-icon right">
+                        <i class="fa fa-info-circle tooltips" data-original-title="Name" data-container="body"></i>
+                        <%= f.text_field :name, placeholder: 'Name', class: "form-control form-control-solid placeholder-no-fix", disabled: true%>
+                       </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <%= label_tag(:site_description, "Description", class: "col-md-4 control-label") %>
+                    <div class="col-md-8">
+                      <div class="input-icon right">
+                        <i class="fa fa-info-circle tooltips" data-original-title="User name" data-container="body"></i>
+                        <%= f.text_area :description, placeholder: 'Description', class: "form-control form-control-solid placeholder-no-fix"%>
+                       </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <%= label_tag(:site_category, "Nhóm danh muc:", class: "col-md-4 control-label") %>
+                    <div class="col-md-4">
+                        <select class="bs-select form-control" name="site[category_id]">
+                            <% @category_data.each do |cate_id, category|%>    
+                            <optgroup label="<%= category[:label]%>">
+                                <% if category[:sub_cate].blank? %>
+                                <option value="<%= cate_id%>" <%= cate_id == @site.category_id ? 'selected' : ''%>><%= category[:label]%></option>
+                                <% else %>
+                                <% category[:sub_cate].each do|id, sub_cate|%>
+                                <option value="<%= id %>" <%= id == @site.category_id ? 'selected' : ''%>><%=sub_cate%></option>
+                                <%end%>
+                                <%end%>                                
+                            </optgroup>                            
+                            <% end %>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                 <div class="row">
+                    <div class="col-md-offset-4 col-md-8">
+                       <!--  <button type="button" class="btn default">Cancel</button> -->
+                        <%= submit_tag("Submit", class: "btn green uppercase") %>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        <% end %>
+    </div>
+</div>
+

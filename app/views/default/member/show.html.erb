@@ -1,0 +1,74 @@
+<div class="container mt-lg">
+    <div class="row">
+
+        <div class="col-md-4">
+            <img alt="" class="img-responsive" src="https://graph.facebook.com/<%= @member.facebook_id %>/picture?type=large" style="width: 100%;">
+        </div>
+        <div class="col-md-8">
+            <h2 class="mb-none">
+                <strong><%= @member.name %> </strong></h2>
+            <h4 class="heading-primary"></h4>
+            <hr class="solid">
+            <ul class="list list-icons">
+                <li><i class="fa fa-check"></i> Email: Chưa cập nhật.</li>
+                <li><i class="fa fa-check"></i> Facebook:
+                    <a href="http://facebook.com/<%= @member.facebook_id %>"><%= @member.name %></a>
+                </li>
+                <!-- <li><i class="fa fa-check"></i> Thành phố hoạt động: Hồ Chí Minh.</li>
+                <li><i class="fa fa-check"></i> Khu vực: Chưa cập nhật.</li>-->
+                <li>
+                    <i class="fa fa-check"></i> Thông tin người đăng:
+                    <div class="radio-list">
+                        <label class="radio-inline">
+                            <input type="radio" name="categoryId" id="optionsRadios4" value="1"  disabled> Chính chủ</label>
+                        <label class="radio-inline">
+                            <input type="radio" name="categoryId" id="optionsRadios5" value="2"  disabled> Môi giới </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="categoryId" id="optionsRadios6" value="0"  disabled> Chưa xác định </label>
+                    </div>
+                </li>
+            </ul>
+            <div class="fb-comments" data-href="" data-layout="button_count" data-size="small" data-mobile-iframe="true">
+                <a class="fb-xfbml-parse-ignore" target="_blank" href="" data-numposts="5"></a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <hr>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h4 class="mt-xlg mb-none text-uppercase"><strong>Tin</strong> đã đăng</h4>
+            <p>Những tin đã đăng.</p>
+            <div class="row">
+                <ul class="portfolio-list">
+                    <!-- list -->
+                    <li class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="portfolio-item">
+                            <a href="">
+                                <span class="thumb-info">
+                                    <span class="thumb-info-wrapper">
+                                        <img src="" class="img-responsive"
+                                             alt="" style="height: 150px;">
+                                        <span class="thumb-info-title">
+                                            <span class="thumb-info-inner ellipsis"></span>
+                                            <span class="thumb-info-type"></span>
+                                        </span>
+                                        <span class="thumb-info-action">
+                                            <span class="thumb-info-action-icon"><i
+                                                    class="fa fa-link"></i></span>
+                                        </span>
+                                    </span>
+                                </span>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

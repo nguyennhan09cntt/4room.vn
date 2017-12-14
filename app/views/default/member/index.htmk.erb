@@ -1,0 +1,112 @@
+<div class="columns-container">
+    <div class="container" id="columns">
+
+        <!-- breadcrumb -->
+        <div class="breadcrumb clearfix">
+            <a class="home" href="/" title="Return to Home">Trang chủ</a>
+            <span class="navigation-pipe">&nbsp;</span>
+            <span class="navigation_page">Thông tin người đăng tin</span>
+        </div>
+        <!-- ./breadcrumb -->
+
+        <div class="row">
+            <div class="col-md-3 hidden-xs" id="left_column">
+                <?php echo $this->render('widgets/sidebar-left.phtml'); ?>
+            </div>
+
+            <div class="center_column col-xs-12 col-sm-9" id="center_column">
+                <h2 class="page-heading">
+                    <span class="page-heading-title">Tìm kiếm thông tin người đăng</span>
+                </h2>
+
+                <div id="search_box_product_own" class="mt-sm">
+                    <div class="search_box_wrapper">
+                        <div class="container-fluid">
+                            <div class="search_box_form_wrapper pt-md">
+
+                                <form role="search" method="GET" class="searchform" action="/thong-tin-nguoi-dang.html">
+                                    <div class="search_field">
+                                        <div class="row">
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-9 padding5">
+                                                <div class="form-group">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" name="key"
+                                                               value="<?php echo $this->key; ?>"
+                                                               placeholder="Số điện thoại người đăng">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-3 padding5">
+                                                <div class="form-group  pull-right">
+                                                    <button type="submit"
+                                                            class="btn btn-default btn_search_box  btn-default">Tìm kiếm
+                                                    </button>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- view-product-list-->
+                <div id="view-product-list" class="view-product-list">
+                    <h2 class="page-heading">
+                        <span class="page-heading-title"></span>
+                    </h2>
+                    <!-- PRODUCT LIST -->
+                    <div class="row product-list list mt-sm">
+                        <?php foreach ($this->productOwnerData as $key => $owner) { ?>
+
+                            <div class="col-md-4 product-item">
+                                <span class="thumb-info thumb-info-preview thumb-info-preview-long">
+                                    <span class="thumb-info-wrapper">
+                                        <!--<span class="thumb-info-image" data-original="img/previews/preview-corporate-version8.jpg" data-plugin-lazyload="" style="display: block; background-image: url(&quot;img/previews/preview-corporate-version8.jpg&quot;);"></span>-->
+                                       <a
+                                           href="/thong-tin-nguoi-dang/<?php echo Application_Function_String::getFormatUrl(Application_Function_String::convertNoVn($owner[DbTable_Product_Own::COL_PRODUCT_OWN_PHONE])) . '-' . $this->productOwnerEncode($owner[DbTable_Product_Own::COL_PRODUCT_OWN_ID]) . '.html'; ?>">
+                                        <img class="thumb-info-image"
+                                             src="<?php echo $owner[DbTable_Product_Own::COL_PRODUCT_OWN_FACEBOOK_ID] ? 'https://graph.facebook.com/' . $owner[DbTable_Product_Own::COL_PRODUCT_OWN_FACEBOOK_ID] . '/picture?type=large' : '/upload/default/no-images.png'; ?>"
+                                             alt="<?php echo $owner[DbTable_Product_Own::COL_PRODUCT_OWN_PHONE] ?>"
+                                             height="100">
+                                           </a>
+                                        <div class="figType"><a
+                                                href="/thong-tin-nguoi-dang/<?php echo Application_Function_String::getFormatUrl(Application_Function_String::convertNoVn($owner[DbTable_Product_Own::COL_PRODUCT_OWN_PHONE])) . '-' . $this->productOwnerEncode($owner[DbTable_Product_Own::COL_PRODUCT_OWN_ID]) . '.html'; ?>"><?php echo $owner[DbTable_Product_Own::COL_PRODUCT_OWN_NAME]; ?></a>
+                                        </div>
+                                    </span>
+                                </span>
+
+                                <div class="recent-posts pt-md mb-lg" style="border: 1px solid #DDD; border-top: none;">
+                                    <article class="post mr-sm ml-sm">
+                                        <h5 class="mb-xs course-title"><a class=""
+                                                                          href="/thong-tin-nguoi-dang/<?php echo $owner[DbTable_Product_Own::COL_PRODUCT_OWN_PHONE] . '-' . $this->productOwnerEncode($owner[DbTable_Product_Own::COL_PRODUCT_OWN_ID]) . '.html'; ?>"><?php echo $owner[DbTable_Product_Own::COL_PRODUCT_OWN_PHONE]; ?></a>
+                                        </h5>
+
+
+                                    </article>
+                                </div>
+                            </div>
+                        <?php } ?>
+
+
+                    </div>
+                    <!-- ./PRODUCT LIST -->
+                </div>
+                <!-- ./view-product-list-->
+                <div class="sortPagiBar">
+                    <div class="bottom-pagination">
+                        <?php echo $this->pagination; ?>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

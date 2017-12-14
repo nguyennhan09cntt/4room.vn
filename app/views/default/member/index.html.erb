@@ -1,0 +1,65 @@
+<div class="columns-container mt-sm">
+    <div class="container" id="columns">
+        <!-- breadcrumb -->
+        <div class="breadcrumb clearfix">
+            <a class="home" href="/" title="Return to Home">Trang chủ</a>
+            <span class="navigation-pipe">&nbsp;</span>
+            <span class="navigation_page">Thông tin người đăng tin</span>
+        </div>
+        <!-- ./breadcrumb -->
+        <div class="row">
+            <div class="col-md-3 hidden-xs" id="left_column">
+            </div>
+            <div class="center_column col-xs-12 col-sm-9" id="center_column">
+                <h2 class="page-heading">
+                    <span class="page-heading-title">Thông tin người đăng</span>
+                </h2>
+                <!-- view-product-list-->
+                <div id="view-product-list" class="view-product-list">
+                    <h2 class="page-heading">
+                        <span class="page-heading-title"></span>
+                    </h2>
+                    <!-- PRODUCT LIST -->
+                    <div class="row product-list list mt-sm">
+                        <% @members.each do |member|%>
+                            <div class="col-md-4 product-item">
+                                <span class="thumb-info thumb-info-preview thumb-info-preview-long">
+                                    <span class="thumb-info-wrapper">
+                                        
+                                <a href="/group/<%= @site[:facebook_id] %>/member/<%= member.facebook_id %>">
+
+                                        <img class="thumb-info-image"
+                                             src="https://graph.facebook.com/<%= member.facebook_id %>/picture?type=large" 
+                                             height="100">
+                                           </a>
+                                <div class="figType">
+                                    <a href="">
+                                        <%= member.name %>
+                                    </a>
+                                </div>
+                                </span>
+                                </span>
+                                <div class="recent-posts pt-md mb-lg" style="border: 1px solid #DDD; border-top: none;">
+                                    <article class="post mr-sm ml-sm">
+                                        <h5 class="mb-xs course-title">
+                                            <a class="" href=""></a>
+                                        </h5>
+                                    </article>
+                                </div>
+                            </div>
+                        <% end %>
+                    </div>
+                    <!-- ./PRODUCT LIST -->
+                </div>
+                <!-- ./view-product-list-->
+                <div class="sortPagiBar">
+                    <div id="pagination_container" style="text-align: center;">
+                        <ul class="pagination f_right">
+                            <%= will_paginate @members, :renderer => BootstrapPagination::Rails %>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

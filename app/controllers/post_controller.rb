@@ -20,6 +20,11 @@ class PostController < ApplicationController
   end
 
   def export_data    
+    group_id = '545206412228291'
+    if params[:group_id].present?
+      group_id = params[:group_id]
+    end
+
     date_from = params['date-from']
     date_to = params['date-to']
     change_format
@@ -37,10 +42,12 @@ class PostController < ApplicationController
     end
     end_date = date#.in_time_zone('UTC')
 
+    @site = Site.where('facebook_id = :group_id', {group_id: group_id}).first
+
     #begin_day = DateTime.now.beginning_of_day
     @post_list = Post.where(
-      'created_at > :begin_date and created_at < :end_date',
-      {begin_date: begin_date, end_date: end_date}
+      'created_at > :begin_date and created_at < :end_date AND site_id = :site_id',
+      {begin_date: begin_date, end_date: end_date, site_id: @site[:id]}
     ).reorder("created_at DESC")
     content = @post_list.to_xls(col_sep: "\t")
     #content  = content.scrub('')
@@ -95,6 +102,8 @@ class PostController < ApplicationController
         else
           part_one_array = messages[0].split("\n")
           post[:name] = part_one_array[0].each_char.select { |char| char.bytesize < 4 }.join if part_one_array[0].present?
+          post[:name] = post[:name].split(' ').first(16).join(' ').each_char.select { |char| char.bytesize < 4 }.join if post[:name].present?
+          post[:name] = post[:name] + '...' if post[:name].present?
 
           if part_one_array[1]
             address_price = part_one_array[1].split(" - ")

@@ -1,0 +1,104 @@
+<div class="page-bar">
+  <ul class="page-breadcrumb">
+    <li>
+      <a href="/">Home</a>
+      <i class="fa fa-circle"></i>
+    </li>
+    <li>
+      <span>Module</span>
+    </li>
+  </ul>
+</div>
+<!-- BEGIN PAGE TITLE-->
+<h1 class="page-title"> 
+	Manage  
+    <small>Module</small>
+</h1>
+<!-- END PAGE TITLE-->
+
+<div class="portlet box grey-cascade">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="fa fa-globe"></i><%= @groups.size %> dòng(s)
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="table-toolbar">
+      <div class="btn-group">
+        <!-- <button id="btn_add_new" class="btn green">
+          Thêm mới <i class="fa fa-plus"></i>
+        </button> -->
+      </div>
+      <div class="pull-right">
+        <form method="get" action="">
+          <fieldset class="filter">
+            <label>Tu khoa</label>
+            <input type="text" class="input-inline form-control" id="search_keyword" name="keyword" value="" placeholder="Nhập thông tin cần tìm">
+            <input value="Tìm kiếm" class="btn blue" type="submit">
+          </fieldset>
+        </form>
+      </div>
+    </div>
+    <table class="table table-striped table-bordered table-hover" id="table_module">
+      <thead>
+        <tr>
+          <th>
+
+          </th>
+          <th>
+            ID
+          </th>
+          <th>
+            Name
+          </th>          
+           <th>
+            Type
+          </th>   
+          <th align="center">Member count</th>    
+          <th>
+            
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+      	<%  @groups.each do |group| %>
+        <%   next if @site.present? and @site.include? group['id'] %>        
+        <tr>
+          <td align="center">
+            <label style="background-image: url(<%= group['cover']['source'] if group['cover'].present? %>); width: 50px; height: 50px;background-repeat: no-repeat; background-position: center;    -webkit-background-size: cover;"></label>
+          </td>
+          <td><%= group['id'] %></td>
+          <td><%= group['name'] %></td>           
+          <td>          
+            <%=group['privacy'] %>
+          </td>    
+          <td align="center"><%= group['member_count'] %></td>
+          <td class="clearfix">        
+            <div class="util-btn-margin-bottom-5"> 
+              <a href="https://facebook.com/<%= group['id'] %>" class="btn btn-sm yellow" target="_blank">View <i class="fa fa-link"></i></a>
+          
+              <%= form_tag("/my-groups", method: "post", class:"form-horizontal") do %>            
+              <%= hidden_field(:group, :facebook_id, :value => group['id']) %>
+              <%= hidden_field(:group, :name, :value => group['name']) %>
+              <%= hidden_field(:group, :member_count, :value => group['member_count']) %>
+              <%= hidden_field(:group, :url, :value => 'https://facebook.com/' + group['id']) %>
+              <%= hidden_field(:group, :cover, :value => group['cover'].present? ? group['cover']['source'] : '') %>
+              <%= submit_tag("Add group", class: "btn btn-sm green") %>            
+              <% end %>
+            </div>   
+            
+          </td>
+          
+        </tr>
+        <% end %>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="99">
+            
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>

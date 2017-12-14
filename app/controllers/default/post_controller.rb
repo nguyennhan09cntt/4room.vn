@@ -6,6 +6,7 @@ class Default::PostController < DefaultController
     end
     @site = Site.where('facebook_id = :group_id', {group_id: group_id}).first
     @posts = Post.where('site_id = :site_id', {site_id: @site[:id]}).paginate(:page => params[:page], :per_page => 6).reorder("created_at DESC, id DESC")
+    @filter = params.permit(:category, :price_value, :keyword)
 	end
 
 	def show

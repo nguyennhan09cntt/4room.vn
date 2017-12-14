@@ -1,0 +1,218 @@
+<div id="page-content" class="page-content">
+    <div class="container">
+        <div class="row">
+            <div class="micro-main-menu mt-md">
+                <div class="foody-toolbar fd-clearbox mic-navigation" ng-class="{'loading':IsLoading}">
+                    <div class="fd-clearbox" style="top: 824px;">
+                        <ul class="list-tool">
+                            <li data-item-id="0" class="list-group-item active" style="line-height:18px;">
+                                <a data-item-type="home" itemprop="url" href="">
+                                    Thông tin chi tiết <span class="fa fa-angle-right"
+                                                    style="float: right; font-size: 14px;"></span>
+                                </a>
+                            </li>
+                            <li class="list-group-item" style="line-height:18px;">
+                                <a href="/group/<%= @site[:facebook_id] %>/member">
+                                        Thanh vien<span class="fa fa-angle-right"
+                                                                  style="float: right; font-size: 14px;"></span>
+                                    </a>
+                            </li>
+                            <li data-item-id="5" data-item-name="album" class="list-group-item" style="line-height:18px;">
+                                <a href="/group/<%= @site[:facebook_id] %>/post">
+                                    Bai viet
+                                    <span class="fa fa-angle-right" style="float: right; font-size: 14px;"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="micro-right1000 mt-md">
+                <section class="microsite" style="position: static; ">
+                    <div class="micro-container">
+                        <div class="micro-content">
+                            <div class="user-history-delivery" style="margin-top: -20px;">
+                            </div>
+                            <div class="microsite-basic-info">
+                                <!--Start microsite header-->
+                                <div>
+                                    <div class="micro-inforbox">
+                                        <div class="social-share-icons">
+                                            <div class="total-views" title="">
+                                                <span>100</span>
+                                                <div>lượt xem</div>
+                                            </div>
+                                            <div class="fb-like" data-href="" data-layout="box_count" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+                                        </div>
+                                        <div class="micro-header">
+                                            <div class="micro-status-label"></div>
+                                            <div class="main-image">
+                                                <div class="img">
+                                                    <a href="<%= @site[:cover] ? @site[:cover] : '/assets/default/layout/img/no-image.jpg' %>" class="fancybox" data-fancybox-group="gallery">
+                                                        <img itemprop="image" class="pic-place"
+                                                             src="<%= @site[:cover] ? @site[:cover] : '/assets/default/layout/img/no-image.jpg' %>">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="main-information disableSection">
+                                                <div class="res-common" style="position: relative;">
+                                                    <div class="res-common-info" style="">
+                                                        <div class="main-info-bg"></div>
+                                                        <div class="breadcrum" style="margin-top:15px;margin-bottom:0; clear:both;width:100%;">
+                                                            <div class="breadcrum-microsite">
+                                                                <span itemscope="" itemtype="http://schema.org/BreadcrumbList"><span itemprop="itemListElement" itemscope=""
+                                                                     itemtype="http://schema.org/ListItem">
+<meta itemprop="position" content="1">
+<a itemprop="item" href="/thue-tro/ho-chi-minh">
+    <span itemprop="name">Hồ Chí Minh</span> »</a>
+                                                                </span>
+                                                                <span itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+<meta itemprop="position" content="2">
+<a itemprop="item"
+   href="">
+    <span itemprop="name">Q6</span> »</a>
+                                                                </span>
+                                                                <span itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+<meta itemprop="position" content="3">
+
+                                                                </span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="main-info-title">
+                                                            <span class="main-info-title-contracted">
+<span class="fa fa-check-circle"></span>
+                                                            </span>
+                                                            <h1 itemprop="name"><%= @site[:name]%></h1>
+                                                            <div class="category">
+                                                                <div class="category-items">
+                                                                    <a href="/nha-cho-thue.html" title="Nhà cho thuê">Nhà
+                                                                        trọ</a>
+                                                                </div>
+                                                                <div class="category-cuisines">
+                                                                    <div class="cuisines-separator"> -</div>
+                                                                    <div class="cuisines-list">
+                                                                        <ul itemprop="servesCuisine">
+                                                                            <li class="cuisines-list-items">
+                                                                                <a class="microsite-cuisine" style="color: #888;" href="/phong-cho-thue.html">
+                                                                                    Phòng trọ</a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div id="basicinfo-sticker"></div>
+                                                        </div>
+                                                        <div class="disableSection">
+                                                            <div itemprop="address" itemscope="" itemtype="http://schema.org/PostalAddress" class="res-common-add">
+                                                                <span class="fa fa-location-arrow locationicon"></span>
+                                                                <span>
+
+                                                                    <span
+                                                                        itemprop="streetAddress">Dia chi</span>
+                                                            </div>
+                                                            <div class="res-common-price">
+                                                                <div class="micro-timesopen">
+                                                                    <span class="fa fa-clock-o houricon"></span>
+                                                                    <span class="itsclosed" title="<?php echo $this->formatTime($this->dataInfo[DbTable_Product::COL_PRODUCT_CREATED_AT], 'd-m-Y'); ?>">Ngày đăng:</span>
+                                                                    <span>2017</span>
+                                                                </div>
+                                                                <div class="res-common-minmaxprice">
+                                                                    <span class="fa fa-tag minmaxpriceicon"></span>
+                                                                    <span class="" title="Giá phòng">Giá phòng:</span>
+                                                                    <span itemprop="priceRange" class="detail-price">
+                                                                    100
+                                                                    </span>
+                                                                </div>
+                                                                <div class="res-common-minmaxprice">
+                                                                    <span class="fa fa-phone minmaxpriceicon"></span>
+                                                                    <span class="" title="Số điện thoại">Phone:
+                                                                    </span>
+                                                                    <span itemprop="priceRange">
+                                                                            
+                                                                    </span> - <span><a
+                                                                                href="<?php echo $this->dataInfo[DbTable_Product::COL_PRODUCT_REFER_LINK]; ?>" style="    background-color: #0088cc;color: white;    padding: 5px;">
+                                                                                Nguồn tin</a></span>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span itemprop="geo" itemscope="" itemtype="http://schema.org/GeoCoordinates">
+<meta itemprop="latitude" content="21.0223900000000">
+<meta itemprop="longitude" content="105.8473810000000"></span>
+                                </div>
+                            </div>
+                            <div class="tabbable-custom mt-md ">
+                                <ul class="nav nav-tabs ">
+                                    <li>
+                                        <a href="#tab_5_0" data-toggle="tab">
+                                            Thông tin </a>
+                                    </li>
+                                    <li>
+                                        <a href="#tab_5_1" data-toggle="tab">
+                                            Hình ảnh </a>
+                                    </li>
+                                    <li class="active">
+                                        <a href="#tab_5_2" data-toggle="tab">
+                                            Bản đồ </a>
+                                    </li>
+                                    <li>
+                                        <a href="#tab_5_3" data-toggle="tab">
+                                            Bình luận </a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane" id="tab_5_1">
+                                        <section id="property-gallery" class="mt-md center">
+                                            <ul class="portfolio-list sort-destination" data-sort-id="portfolio">
+                                                <li class="col-md-3 col-sm-6 col-xs-12 isotope-item websites">
+                                                    <div class="portfolio-item">
+                                                        <a href="" class="fancybox" data-fancybox-group="gallery">
+                                                                <span class="thumb-info">
+                                                                    <span class="thumb-info-wrapper">
+                                                                        <img
+                                                                            src=""
+                                                                            class="img-responsive"
+                                                                            alt="">
+
+                                                                    </span>
+                                                                </span>
+                                                        </a>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                            <img alt="" src="">
+                                        </section>
+                                    </div>
+                                    <div class="tab-pane active" id="tab_5_2">
+                                        <div id="googlemaps" class="google-map mt-md"></div>
+                                    </div>
+                                    <div class="tab-pane " id="tab_5_0">
+                                    </div>
+                                    <div class="tab-pane" id="tab_5_3">
+                                        <div class="fb-comments" data-href="http://" data-layout="button_count" data-size="small" data-mobile-iframe="true">
+                                            <a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://xome.vn/"></a>data-numposts="5"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="foody-toolbar fd-clearbox ng-scope" style="margin-bottom: 15px;height:48px;" ng-controller="MicroSiteCtrl" ng-init="Init({ResId:'169399'})">
+                    <div class="fd-clearbox" style="height: auto; top: 0px;">
+                    </div>
+                </div>
+                <!-- Popup PhoneNumber -->
+                <div class="microsite-popup-phone-number"></div>
+                <!-- End Popup PhoneNumber-->
+            </div>
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+</div>

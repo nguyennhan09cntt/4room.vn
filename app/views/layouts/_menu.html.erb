@@ -17,8 +17,7 @@
     </a>
   </li>
   <% @menuData.each do |key, item|  %>
-    <% next if controller.controller_name != 'post' and key == 'Posts Manager'%>
-    <% next if controller.controller_name == 'post' and key == 'Your Group'%>
+    <% next if controller.controller_name != 'post' and key == 'Posts Manager'%>    
     <li class="module nav-item ">
       <a href="javascript:;" class="nav-link nav-toggle">
         <i class="icon-home"></i>

@@ -1,0 +1,36 @@
+<%= render "layouts/default/search_box" %>
+<div class="container blog-home margin-top-20">
+    <div class="col-md-12">
+        <div class="row ">
+            <div class="col-md-12">
+                <ul class="breadcrumb">
+                    <li><a href="/">Trang chủ</a></li>
+                    <li><a href="/">Danh sách</a></li>
+                    <li class="active"></li>
+                </ul>
+                <h1 class="">
+                    Tim kiem danh sach bai dang
+                </h1>
+                <div class="gap gap-small"></div>
+                <div class="row row-wrap" id="blogItems">
+                    <% @posts.each do |post|%>
+                        <div class="grid-sizer col-md-4">
+                            <div class="fb-post" data-href="https://www.facebook.com/<%=post[:facebook_id].split('_').first%>/posts/<%= post[:facebook_id].split('_').last %>" data-show-text="true">
+                                <blockquote cite="https://www.facebook.com/groups/thuephongtrohcm/permalink/<%= post[:facebook_id].split('_').last%>/?sale_post_id=<%= post[:facebook_id].split('_').last%>" class="fb-xfbml-parse-ignore">Người đăng: <a href="#" role="button">Đặng Thảo Minh</a> vào&nbsp;<a href="https://www.facebook.com/groups/thuephongtrohcm/permalink/<%= post[:facebook_id].split('_').last%>/?sale_post_id=<%= post[:facebook_id].split('_').last%>">17 Tháng 10 2017</a></blockquote>
+                            </div>
+                        </div>
+                        <% end %>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div id="pagination_container" style="text-align: center;">
+                        <ul class="pagination f_right">
+                            <%= will_paginate @posts, :renderer => BootstrapPagination::Rails %>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,10 +1,11 @@
+<%= render "layouts/default/search_box" %>
 <div class="container blog-home margin-top-20">
     <div class="col-md-12">
         <div class="row ">
             <div class="col-md-12">
                 <ul class="breadcrumb">
                     <li><a href="/">Trang chủ</a></li>
-                    <li><a href="/pokemon">Danh sách</a></li>
+                    <li><a href="/">Danh sách</a></li>
                     <li class="active"></li>
                 </ul>
                 <h1 class="">
@@ -15,7 +16,7 @@
                     <% @posts.each do |post|%>
                         <div class="grid-sizer col-md-4">
                             <div class="fb-post" data-href="https://www.facebook.com/<%=@site[:facebook_id]%>/posts/<%= post[:facebook_id].remove(@site[:facebook_id] +'_') %>" data-show-text="true">
-                                <blockquote cite="https://www.facebook.com/groups/thuephongtrohcm/permalink/<%= post[:facebook_id].remove(@site[:facebook_id] +'_') %>/?sale_post_id=<%= post[:facebook_id].remove(@site[:facebook_id] +'_') %>" class="fb-xfbml-parse-ignore">Người đăng: <a href="#" role="button">Đặng Thảo Minh</a> vào&nbsp;<a href="https://www.facebook.com/groups/thuephongtrohcm/permalink/<%= post[:facebook_id].remove(@site[:facebook_id] +'_') %>/?sale_post_id=<%= post[:facebook_id].remove(@site[:facebook_id] +'_') %>">17 Tháng 10 2017</a></blockquote>
+                                <blockquote cite="https://www.facebook.com/groups/thuephongtrohcm/permalink/<%= post[:facebook_id].remove(@site[:facebook_id] +'_') %>/?sale_post_id=<%= post[:facebook_id].remove(@site[:facebook_id] +'_') %>" class="fb-xfbml-parse-ignore">Người đăng: <a href="#" role="button">Nguyen Nhan</a> vào&nbsp;<a href="https://www.facebook.com/groups/thuephongtrohcm/permalink/<%= post[:facebook_id].remove(@site[:facebook_id] +'_') %>/?sale_post_id=<%= post[:facebook_id].remove(@site[:facebook_id] +'_') %>"><%= post[:created_at].strftime("%d/%m/%Y %H:%M") %></a></blockquote>
                             </div>
                         </div>
                         <% end %>
@@ -25,7 +26,7 @@
                 <div class="row">
                     <div id="pagination_container" style="text-align: center;">
                         <ul class="pagination f_right">
-                            <%= will_paginate @posts %>
+                            <%= will_paginate @posts, :renderer => BootstrapPagination::Rails %>
                         </ul>
                     </div>
                 </div>

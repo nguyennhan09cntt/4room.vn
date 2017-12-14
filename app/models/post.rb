@@ -10,5 +10,5 @@ class Post < ApplicationRecord
         csv << post.attributes.values_at(*column_names)
       end
     end
-  end
+  end  
 end

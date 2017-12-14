@@ -2,6 +2,14 @@
     box-shadow: none;
 }
 
+body {
+    background: #eee;
+    font-family: arial;
+    position: relative;
+    font-size: 12px;
+    line-height: 1.4em;
+    margin: 0
+}
 
 
 

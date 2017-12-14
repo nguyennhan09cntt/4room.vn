@@ -67,13 +67,14 @@
           <td><a href="<%= c.url %>"><%= c.name %></a></td>
            
           <td>          
-            
+            <%= c.member_count %>
           </td>    
           <td>            
             <%= c.created_at %>
           </td>
           <td>
              <a href="/<%= c.facebook_id %>/post">Manage Post</a>
+              <a href="/<%= c.facebook_id %>/member">Manage Member</a>
           </td>
           
         </tr>

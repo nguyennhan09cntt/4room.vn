@@ -961,3 +961,14 @@ hr {
 .dropdown > .dropdown-menu:before{
     display: none!important;
 }
+
+
+.map-navigation {
+    /*background-color: #e94d1c;*/
+    border: 3px solid #cc3304;
+    padding: 15px 15px 0px 15px;    
+    right: 0px;
+    top: 50px;
+    z-index: 99;
+    width: 100%;
+}

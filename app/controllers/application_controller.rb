@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate_user
-  config.time_zone = 'HaNoi'
+  # config.time_zone = 'Asia/Ho_Chi_Minh'
 
 
   Default = 'default'

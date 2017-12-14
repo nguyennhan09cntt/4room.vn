@@ -45,18 +45,25 @@ class LoginController < ApplicationController
       session[:user_id] = user.id
       session[:face_access_token] = access_token
       user_params[:access_token] = access_token
-      user_params[:facebook_id] = face_user['id']
-      logger.debug user_params
+      #user_params[:facebook_id] = face_user['id']
       user.update_attributes(user_params)
       user.save(validate: false)
     else
       user_params[:name] = face_user['name']
       user_params[:facebook_id] = face_user['id']
       user_params[:birthday] = face_user['birthday']
-      user_params[:access_token] = access_token      
+      user_params[:access_token] = access_token
       user_params[:user_name] = face_user['email'] || face_user['id']
       user = User.new(user_params)
       if user.save(validate: false)
+
+        #phan quyen admin of group:  Post, Mygroup, Listing group of admin
+        privilege_ids = { '14' => '14', '15' => '15', '16' => '16'}
+        privilege_ids.each do |privilege_id, _|
+          permission = UserPermission.new(:fk_user => @user.id, :fk_user_privilege => privilege_id)
+          permission.save
+        end
+
         session[:user_id] = user.id
         session[:face_access_token] = access_token
       else
