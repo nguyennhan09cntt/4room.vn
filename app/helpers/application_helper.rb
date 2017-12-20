@@ -32,4 +32,8 @@ module ApplicationHelper
     end    
     render :partial => 'layouts/menu'
   end
+
+  def title(page_title)
+    content_for(:title) { page_title }
+  end
 end

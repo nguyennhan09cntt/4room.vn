@@ -1,0 +1,38 @@
+<% title @post[:name]%>
+<div class="container blog-home margin-top-20">
+    <div class="row ">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-6">
+            <div class="blog-page">
+                <div class="media">
+                    <a href="#" class="pull-left">
+                            <img alt="" src="http://static.xome.vn/upload/default/no-avatar.png" class="media-object">
+                        </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">Lưu Chung Kiên                               
+                         </h4>
+                        <span>
+                            2017-12-20 17:27:19    
+                        </span>
+                        <!--<hr>-->
+                        <!-- Nested media object -->
+                    </div>
+                </div>
+                <div class="blog-data">
+                    <%= simple_format @post[:content]%>
+                    <br>
+                    <iframe src="https://www.facebook.com/plugins/like.php?href=<%=url_for(:only_path => false)%>&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId" width="450" height="80" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+                    <hr>
+                    <div class="fb-comments" data-href="<%= url_for(:only_path => false)
+
+%>" data-layout="button_count" data-size="small" data-mobile-iframe="true">
+                        <a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?<%= url_for(:only_path => false)
+
+%>" data-numposts="5"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

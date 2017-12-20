@@ -35,6 +35,7 @@ Rails.application.routes.draw do
 
   #resources :post
   get '/post' , to: 'post#index'
+  get '/:group_id/post/:post_id/' , to: 'default/post#show'
   get 'export_data', to: 'post#export_data'
   get 'post/update_data', to: 'post#update_data'
 

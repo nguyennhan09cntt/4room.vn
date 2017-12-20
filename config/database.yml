@@ -16,9 +16,16 @@ default: &default
   username: root
   password:
   host: localhost
+  # adapter: postgresql
+  # encoding: unicode
+  # pool: 5
+  # username: admin
+  # password: 01699613605
+  # host: 127.0.01
 
 development:
   <<: *default
+  # database: 4rum
   database: 4room
 
 # Warning: The database defined as "test" will be erased and

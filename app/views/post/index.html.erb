@@ -70,6 +70,7 @@
           <td><%= post.created_at.strftime("%d/%m/%Y %H:%M") %></td>
           <td>
              <a href="https://facebook.com/<%= post.facebook_id %>" class="btn btn-sm yellow btn-outline edit" target="_blank">Link</a>
+             <a href="/<%=@site.facebook_id%>/post/<%= post[:facebook_id].remove(@site[:facebook_id] +'_') %> " class="btn btn-sm yellow btn-outline edit" target="_blank">Preview</a>
           </td>
         </tr>
         <% end %>
