@@ -4,7 +4,7 @@ class Default::MemberController < DefaultController
     if params[:group_id].present?
     	group_id = params[:group_id]
     end
-    @site = Site.where('facebook_id = :group_id', {group_id: group_id}).first
+    @site = Site.where('uid = :group_id', {group_id: group_id}).first
     @members = Member.select('member.*').joins("LEFT JOIN `site_member` ON site_member.member_id = member.id").where('site_id = :site_id', {site_id: @site[:id]}).paginate(:page => params[:page], :per_page => 24)
     @filter = params.permit(:category, :price_value, :keyword)
 	end

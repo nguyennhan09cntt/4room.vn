@@ -42,6 +42,7 @@ gem 'omniauth-facebook' # Facebook authentication
 gem "koala" # Facebook API
 gem 'axlsx', '~> 2.0', '>= 2.0.1'
 gem 'pg', '0.21.0'
+gem 'doorkeeper', '4.2.6'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

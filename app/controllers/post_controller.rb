@@ -1,5 +1,6 @@
 #require "axlsx"
 require "csv"
+require_relative '../../lib/utils'
 
 class PostController < ApplicationController
   BOM = "\377\376"
@@ -117,6 +118,7 @@ class PostController < ApplicationController
         end
       end
 
+      post[:uid] = Post.random_uid(site[:uid])
       post[:facebook_id] = fpost['id']
       post[:site_id] = site[:id]
       post[:status] = 2
@@ -129,7 +131,8 @@ class PostController < ApplicationController
       if fpost['from'].present?
         member[:facebook_id] = fpost['from']['id']
         member[:name] = fpost['from']['name']
-
+        member[:uid] = Member.random_uid
+        
         member_record = Member.where('facebook_id = :facebook_id', {facebook_id: member[:facebook_id] })
         if member_record.present?
           post[:member_id] = member_record[0][:id]
@@ -153,6 +156,7 @@ class PostController < ApplicationController
                 if image_attach['type'] == 'photo'
                   image = {}
                   image[:name] = post[:name]
+                  image[:post_uid] = post[:uid]
                   image[:post_id] = post[:id]
                   image[:url] = image_attach['media']['image']['src']
                   image_record = PostImage.new(image)
@@ -165,6 +169,7 @@ class PostController < ApplicationController
             if attachments['type'] == 'photo'
               image = {}
               image[:name] = post[:name]
+              image[:post_uid] = post[:uid]
               image[:post_id] = post[:id]
               image[:url] = attachments['media']['image']['src']
               image_record = PostImage.new(image)

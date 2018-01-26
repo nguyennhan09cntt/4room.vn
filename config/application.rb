@@ -14,10 +14,6 @@ module AppMysql
     config.assets.paths << "#{Rails.root}/lib/assets"
     
     Koala.config.api_version = 'v2.10'
-
-    config.generators do |g|
-      g.assets false
-    end
   end
 end
 
@@ -34,4 +30,6 @@ module CMSConstant
 
   PREFIX_MENU_URL = 'url'
 
+  SAMPLE_NO_BEGIN = DateTime.current.beginning_of_year
+  SAMPLE_NO_END = DateTime.current.end_of_year
 end

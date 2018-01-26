@@ -1,23 +1,30 @@
+require 'utils'
+
 namespace :batch do
   desc "Run Import Post"
   task :import_post => :environment do
     msg = ''
-    users = User.all
-    begin
-      users.each do |user|
-        next if user[:access_token].blank?
-        if valid_user_token user[:access_token]
-          groups = UserSite.select('site.*').joins("JOIN site ON site.id = user_site.site_id").where('user_site.user_id = :user_id', user_id: user[:id])
-          group_ids = groups.map(&:facebook_id)
-          group_ids.each do |group_id|
+    users = User.where('id = 3')
+
+    users.each do |user|
+      next if user[:access_token].blank?
+      if valid_user_token user[:access_token]
+        groups = UserSite.select('site.*').joins("JOIN site ON site.id = user_site.site_id").where('user_site.user_id = :user_id and site.facebook_id = 545206412228291', user_id: user[:id])
+        group_ids = groups.map(&:facebook_id)
+        group_ids.each do |group_id|
+          p group_id
+          begin
             update_data user[:access_token], group_id
+          rescue Exception => ex
+            msg = ex.message +' APP TOKEN: '+ FACEBOOK_CONFIG['token']
+            p msg
+            next
           end
+
         end
       end
-    rescue => ex
-      msg = ex.message +' APP TOKEN: '+ FACEBOOK_CONFIG['token']
     end
-    p msg
+
     puts "End Task Import"
   end
 
@@ -36,7 +43,7 @@ namespace :batch do
     posts = facebook.get_connections(
       group_id,
       'feed', {
-        limit: 100,
+        limit: 50,
         fields: ['message', 'created_time', 'from', 'attachments']
       }
     )
@@ -48,6 +55,7 @@ namespace :batch do
     posts = posts.collect! do |fpost|
       post = {}
 
+      post[:uid] = Post.random_uid(site[:uid])
       post[:facebook_id] = fpost['id']
       post[:site_id] = site[:id]
       post[:status] = 2
@@ -100,10 +108,12 @@ namespace :batch do
         member[:facebook_id] = fpost['from']['id']
         member[:name] = fpost['from']['name']
 
+
         member_record = Member.where('facebook_id = :facebook_id', {facebook_id: member[:facebook_id] })
         if member_record.present?
           post[:member_id] = member_record[0][:id]
         else
+          member[:uid] = Member.random_uid
           member_record = Member.new(member)
           if member_record.save
             post[:member_id] = member_record[:id]
@@ -117,42 +127,45 @@ namespace :batch do
           post.save
 
           if fpost['attachments'].present?
-          attachments = fpost['attachments']['data'][0]
+            attachments = fpost['attachments']['data'][0]
 
-          if attachments.present?
-            if attachments['type'] == 'album'
-              attachments['subattachments']['data'].each do |image_attach|
-                if image_attach['type'] == 'photo'
-                  image = {}
-                  image[:name] = post[:name]
-                  image[:post_id] = post[:id]
-                  image[:url] = image_attach['media']['image']['src']
-                  image_record = PostImage.new(image)
-                  image_record.save
-                  fpost[:image] = image
+            if attachments.present?
+              if attachments['type'] == 'album'
+                attachments['subattachments']['data'].each do |image_attach|
+                  if image_attach['type'] == 'photo'
+                    image = {}
+                    image[:name] = post[:name]
+                    image[:post_uid] = post[:uid]
+                    image[:post_id] = post[:id]
+                    image[:url] = image_attach['media']['image']['src']
+                    image_record = PostImage.new(image)
+                    image_record.save
+                    fpost[:image] = image
+                  end
                 end
               end
-            end
 
-            if attachments['type'] == 'photo'
-              image = {}
-              image[:name] = post[:name]
-              image[:post_id] = post[:id]
-              image[:url] = attachments['media']['image']['src']
-              image_record = PostImage.new(image)
-              image_record.save
-              fpost[:image] = image
+              if attachments['type'] == 'photo'
+                image = {}
+                image[:name] = post[:name]
+                image[:post_uid] = post[:uid]
+                image[:post_id] = post[:id]
+                image[:url] = attachments['media']['image']['src']
+                image_record = PostImage.new(image)
+                image_record.save
+                fpost[:image] = image
+              end
             end
           end
-          end
 
-          rescue Exception => e          
-            p e.inspect   
-            next
+        rescue Exception => e
+          p e.inspect
+          next
         end
       end
 
       post
     end
   end
+
 end

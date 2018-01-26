@@ -46,11 +46,13 @@ class MyGroupsController < ApplicationController
 
   def create
     group_params = params.require(:group).permit(:name, :facebook_id, :url, :cover, :member_count)
+
     site = Site.where('facebook_id = :facebook_id', {facebook_id: group_params[:facebook_id]}).first
     if site.present?
       UserSite.new(:site_id => site[:id], :user_id  => @current_user[:id]).save
       redirect_to :action => 'index'
     else
+      group_params[:uid] = Site.random_uid 
       site = Site.new(group_params)
       if site.save
         UserSite.new(:site_id => site[:id], :user_id  => @current_user[:id]).save

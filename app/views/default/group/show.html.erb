@@ -12,13 +12,13 @@
                                 </a>
                             </li>
                             <li class="list-group-item" style="line-height:18px;">
-                                <a href="/group/<%= @site[:facebook_id] %>/member">
+                                <a href="/group/<%= @site[:uid] %>/member">
                                         Thanh vien<span class="fa fa-angle-right"
                                                                   style="float: right; font-size: 14px;"></span>
                                     </a>
                             </li>
                             <li data-item-id="5" data-item-name="album" class="list-group-item" style="line-height:18px;">
-                                <a href="/group/<%= @site[:facebook_id] %>/post">
+                                <a href="/group/<%= @site[:uid] %>/post">
                                     Bai viet
                                     <span class="fa fa-angle-right" style="float: right; font-size: 14px;"></span>
                                 </a>
@@ -114,7 +114,7 @@
                                                             <div class="res-common-price">
                                                                 <div class="micro-timesopen">
                                                                     <span class="fa fa-clock-o houricon"></span>
-                                                                    <span class="itsclosed" title="<?php echo $this->formatTime($this->dataInfo[DbTable_Product::COL_PRODUCT_CREATED_AT], 'd-m-Y'); ?>">Ngày đăng:</span>
+                                                                    <span class="itsclosed" title="">Ngày đăng:</span>
                                                                     <span>2017</span>
                                                                 </div>
                                                                 <div class="res-common-minmaxprice">
@@ -131,7 +131,7 @@
                                                                     <span itemprop="priceRange">
                                                                             
                                                                     </span> - <span><a
-                                                                                href="<?php echo $this->dataInfo[DbTable_Product::COL_PRODUCT_REFER_LINK]; ?>" style="    background-color: #0088cc;color: white;    padding: 5px;">
+                                                                                href="" style="    background-color: #0088cc;color: white;    padding: 5px;">
                                                                                 Nguồn tin</a></span>
                                                                     </span>
                                                                 </div>

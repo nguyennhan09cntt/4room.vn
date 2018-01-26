@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  #use_doorkeeper
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'default/index#index'
   
@@ -34,15 +35,17 @@ Rails.application.routes.draw do
   get 'search-open-groups' , to: 'my_groups#facebook_public'
 
   #resources :post
+  get '/:group_id/post' , to: 'post#index'
+  get '/:group_id/export_data', to: 'post#export_data'
+  get '/:group_id/post/update_data', to: 'post#update_data'
+
+
   get '/post' , to: 'post#index'
   get '/:group_id/post/:post_id/' , to: 'default/post#show'
   get 'export_data', to: 'post#export_data'
   get 'post/update_data', to: 'post#update_data'
 
-  get '/:group_id/post' , to: 'post#index'
-  get '/:group_id/export_data', to: 'post#export_data'
-  get '/:group_id/post/update_data', to: 'post#update_data'
-
+  
   get '/:group_id/member' , to: 'member#index'
   get '/:group_id/member/export_data', to: 'member#export_data'
   get '/:group_id/member/update_data', to: 'member#update_data'
@@ -69,5 +72,5 @@ Rails.application.routes.draw do
   get '/category/:identify(/:sub_indetify)' , to: 'default/group#index'
   get '/tim-kiem' , to: 'default/search#index'
 
-  
+  get '*path' => redirect('404.html')
 end

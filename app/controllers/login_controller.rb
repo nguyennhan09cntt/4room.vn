@@ -60,7 +60,7 @@ class LoginController < ApplicationController
         #phan quyen admin of group:  Post, Mygroup, Listing group of admin
         privilege_ids = { '14' => '14', '15' => '15', '16' => '16'}
         privilege_ids.each do |privilege_id, _|
-          permission = UserPermission.new(:fk_user => @user.id, :fk_user_privilege => privilege_id)
+          permission = UserPermission.new(:fk_user => user.id, :fk_user_privilege => privilege_id)
           permission.save
         end
 

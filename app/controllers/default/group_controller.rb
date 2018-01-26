@@ -12,10 +12,10 @@ class Default::GroupController < DefaultController
 	end
 
 	def show
-		group_id = '545206412228291'
+		group_id = '1599535'
     if params[:group_id].present?
     	group_id = params[:group_id]
     end
-    @site = Site.where('facebook_id = :group_id', {group_id: group_id}).first
+    @site = Site.where('uid = :group_id', {group_id: group_id}).first
 	end
 end

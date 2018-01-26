@@ -11,7 +11,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 20170921141234) do
-  enable_extension "plpgsql"
 
   create_table "category", force: :cascade, options: " DEFAULT CHARSET=utf8" do |t|
     t.string   "name",       limit: 128

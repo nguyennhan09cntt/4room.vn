@@ -19,7 +19,7 @@
 <div class="portlet box grey-cascade">
   <div class="portlet-title">
     <div class="caption">
-      <i class="fa fa-globe"></i><%= @posts.total_entries %> dòng(s)
+      <i class="fa fa-globe"></i> Danh sach bai viet trong thang
     </div>
   </div>
   <div class="portlet-body">
@@ -65,12 +65,12 @@
           <td><%= post.name %></td>
           <td><%= post.price %></td>
           <td>
-           <img src="<%= post.post_image[0].present? ? post.post_image[0].url : '' %>" height=40>
+           
           </td>
           <td><%= post.created_at.strftime("%d/%m/%Y %H:%M") %></td>
           <td>
              <a href="https://facebook.com/<%= post.facebook_id %>" class="btn btn-sm yellow btn-outline edit" target="_blank">Link</a>
-             <a href="/<%=@site.facebook_id%>/post/<%= post[:facebook_id].remove(@site[:facebook_id] +'_') %> " class="btn btn-sm yellow btn-outline edit" target="_blank">Preview</a>
+             <a href="/<%=@site[:uid]%>/post/<%= post[:uid].remove(@site[:uid] +'_') %> " class="btn btn-sm yellow btn-outline edit" target="_blank">Preview</a>
           </td>
         </tr>
         <% end %>
